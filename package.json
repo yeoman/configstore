@@ -24,7 +24,7 @@
     "url": "git://github.com/yeoman/configstore.git"
   },
   "scripts": {
-    "test": "node node_modules/.bin/mocha test/test-*.js"
+    "test": "mocha"
   },
   "engines": {
     "node": ">=0.8.0"
