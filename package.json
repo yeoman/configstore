@@ -18,7 +18,7 @@
     "email": "sindresorhus@gmail.com",
     "url": "http://sindresorhus.com"
   },
-  "main": "lib/configstore.js",
+  "main": "configstore.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/yeoman/configstore.git"
