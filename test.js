@@ -2,7 +2,7 @@
 'use strict';
 var assert = require('assert');
 var fs = require('fs');
-var Configstore = require('../configstore');
+var Configstore = require('./configstore');
 
 describe('configstore', function () {
 	var configstorePath = new Configstore('configstore-test').path;
