@@ -58,7 +58,7 @@ Get the item count
 
 #### .path
 
-Get the path to the config file. Can be used to show the user where to config file is located or even open it for them.
+Get the path to the config file. Can be used to show the user where the config file is located or even better open it for them.
 
 
 ## License
