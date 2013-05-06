@@ -35,11 +35,11 @@
     }
   ],
   "dependencies": {
-    "lodash": "~1.0.1",
+    "lodash": "~1.2.1",
     "mkdirp": "~0.3.5",
     "yamljs": "~0.1.4"
   },
   "devDependencies": {
-    "mocha": "~1.8.2"
+    "mocha": "~1.9.0"
   }
 }
