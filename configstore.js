@@ -1,14 +1,13 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
-var tmpdir = require('os').tmpdir;
 var _ = require('lodash');
 var mkdirp = require('mkdirp');
 var YAML = require('yamljs');
 
 var configDir = process.env.XDG_CONFIG_HOME ||
 	path.join(process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'],
-		'.config') || tmpdir;
+		'.config');
 
 
 function readFile(filePath) {
@@ -20,7 +19,7 @@ function readFile(filePath) {
 			mkdirp.sync(path.dirname(filePath));
 			return '';
 		}
-		
+
 		// Rethrow the error
 		throw err;
 	}
