@@ -20,6 +20,9 @@ function readFile(filePath) {
 			mkdirp.sync(path.dirname(filePath));
 			return '';
 		}
+		
+		// Rethrow the error
+		throw err;
 	}
 }
 
