@@ -39,6 +39,12 @@ Configstore.prototype = Object.create(Object.prototype, {
 					err.message = err.message + EOL + permissionError() + EOL;
 				}
 
+				// empty the file if it encounters invalid YAML
+				if (err.name === 'YAMLException') {
+					fs.writeFileSync(this.path, '');
+					return;
+				}
+
 				throw err;
 			}
 		},
