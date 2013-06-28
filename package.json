@@ -9,7 +9,8 @@
     "settings",
     "store",
     "editable",
-    "yaml"
+    "yaml",
+    "yml"
   ],
   "homepage": "https://github.com/yeoman/configstore",
   "bugs": "https://github.com/yeoman/configstore/issues",
@@ -37,10 +38,10 @@
   "dependencies": {
     "lodash": "~1.2.1",
     "mkdirp": "~0.3.5",
-    "yamljs": "~0.1.4"
+    "js-yaml": "~2.1.0"
   },
   "devDependencies": {
-    "mocha": "~1.9.0"
+    "mocha": "~1.11.0"
   },
   "files": [
     "configstore.js"
