@@ -1,13 +1,15 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
-var EOL = require('os').EOL;
+var os = require('os');
+var EOL = os.EOL;
 var _ = require('lodash');
 var mkdirp = require('mkdirp');
 var yaml = require('js-yaml');
 
+var tmpDir = os.tmpdir ? os.tmpdir() : os.tmpDir();
 var configDir = process.env.XDG_CONFIG_HOME ||
-	path.join(process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'],
+	path.join(process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'] || tmpDir,
 		'.config');
 
 function permissionError() {
@@ -50,6 +52,9 @@ Configstore.prototype = Object.create(Object.prototype, {
 		},
 		set: function (val) {
 			try {
+				// make sure the folder exists, it could have been
+				// deleted meanwhile
+				mkdirp.sync(path.dirname(this.path));
 				fs.writeFileSync(this.path, yaml.safeDump(val, {
 					skipInvalid: true,
 					schema: yaml.JSON_SCHEMA
