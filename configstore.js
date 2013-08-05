@@ -2,12 +2,14 @@
 var path = require('path');
 var fs = require('fs');
 var os = require('os');
+var osenv = require('osenv');
 var EOL = os.EOL;
 var _ = require('lodash');
 var mkdirp = require('mkdirp');
 var yaml = require('js-yaml');
 
-var tmpDir = os.tmpdir ? os.tmpdir() : os.tmpDir();
+var user = (osenv.user() || 'unkown').replace(/\\/g, '-');
+var tmpDir = path.join(os.tmpdir ? os.tmpdir() : os.tmpDir(), user);
 var configDir = process.env.XDG_CONFIG_HOME ||
 	path.join(process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'] || tmpDir,
 		'.config');
