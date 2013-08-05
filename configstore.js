@@ -10,9 +10,7 @@ var yaml = require('js-yaml');
 
 var user = (osenv.user() || 'unkown').replace(/\\/g, '-');
 var tmpDir = path.join(os.tmpdir ? os.tmpdir() : os.tmpDir(), user);
-var configDir = process.env.XDG_CONFIG_HOME ||
-	path.join(process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'] || tmpDir,
-		'.config');
+var configDir = process.env.XDG_CONFIG_HOME || path.join(osenv.home() || tmpDir, '.config');
 
 function permissionError() {
 	return 'You don\'t have access to this file.';
