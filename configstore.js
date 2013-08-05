@@ -8,7 +8,7 @@ var _ = require('lodash');
 var mkdirp = require('mkdirp');
 var yaml = require('js-yaml');
 
-var user = (osenv.user() || 'unkown').replace(/\\/g, '-');
+var user = (osenv.user() || 'unknown').replace(/\\/g, '-');
 var tmpDir = path.join(os.tmpdir ? os.tmpdir() : os.tmpDir(), user);
 var configDir = process.env.XDG_CONFIG_HOME || path.join(osenv.home() || tmpDir, '.config');
 
