@@ -14,8 +14,8 @@ var tmpDir = path.join(os.tmpdir ? os.tmpdir() : os.tmpDir(), user);
 var configDir = process.env.XDG_CONFIG_HOME || path.join(osenv.home() || tmpDir, '.config');
 
 function generateFakeUser() {
-    var uid = process.pid + '-' + Date.now() + '-' + Math.floor(Math.random() * 1000000);
-    return crypto.createHash('md5').update(uid).digest('hex');
+	var uid = [process.pid, Date.now(), Math.floor(Math.random() * 1000000)].join('-');
+	return crypto.createHash('md5').update(uid).digest('hex');
 }
 
 function permissionError() {
