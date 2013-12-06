@@ -36,13 +36,13 @@
     }
   ],
   "dependencies": {
-    "lodash": "~2.2.1",
+    "lodash": "~2.4.1",
     "mkdirp": "~0.3.5",
     "js-yaml": "~2.1.0",
     "osenv": "0.0.3"
   },
   "devDependencies": {
-    "mocha": "~1.13.0"
+    "mocha": "~1.15.1"
   },
   "files": [
     "configstore.js"
