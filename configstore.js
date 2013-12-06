@@ -12,14 +12,11 @@ var yaml = require('js-yaml');
 var user = (osenv.user() || generateFakeUser()).replace(/\\/g, '-');
 var tmpDir = path.join(os.tmpdir ? os.tmpdir() : os.tmpDir(), user);
 var configDir = process.env.XDG_CONFIG_HOME || path.join(osenv.home() || tmpDir, '.config');
+var permissionError = 'You don\'t have access to this file.';
 
 function generateFakeUser() {
 	var uid = [process.pid, Date.now(), Math.floor(Math.random() * 1000000)].join('-');
 	return crypto.createHash('md5').update(uid).digest('hex');
-}
-
-function permissionError() {
-	return 'You don\'t have access to this file.';
 }
 
 function Configstore(id, defaults) {
@@ -44,7 +41,7 @@ Configstore.prototype = Object.create(Object.prototype, {
 
 				// improve the message of permission errors
 				if (err.code === 'EACCES') {
-					err.message = err.message + EOL + permissionError() + EOL;
+					err.message = err.message + EOL + permissionError + EOL;
 				}
 
 				// empty the file if it encounters invalid YAML
@@ -68,7 +65,7 @@ Configstore.prototype = Object.create(Object.prototype, {
 			} catch (err) {
 				// improve the message of permission errors
 				if (err.code === 'EACCES') {
-					err.message = err.message + EOL + permissionError() + EOL;
+					err.message = err.message + EOL + permissionError + EOL;
 				}
 
 				throw err;
