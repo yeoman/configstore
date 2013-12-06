@@ -1,6 +1,6 @@
 'use strict';
 var path = require('path');
-var fs = require('fs');
+var fs = require('graceful-fs');
 var crypto = require('crypto');
 var os = require('os');
 var osenv = require('osenv');
