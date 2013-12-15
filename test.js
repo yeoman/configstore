@@ -42,4 +42,9 @@ describe('configstore', function () {
 		var conf = new Configstore('configstore-test', { foo: 'bar' });
 		assert.equal(conf.get('foo'), 'bar');
 	});
+
+	it('make sure `.all` is always an object', function () {
+		fs.unlinkSync(configstorePath);
+		assert.doesNotThrow(function () {this.conf.get('foo')}.bind(this));
+	});
 });

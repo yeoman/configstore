@@ -36,7 +36,7 @@ Configstore.prototype = Object.create(Object.prototype, {
 				// create dir if it doesn't exist
 				if (err.code === 'ENOENT') {
 					mkdirp.sync(path.dirname(this.path));
-					return;
+					return {};
 				}
 
 				// improve the message of permission errors
@@ -47,7 +47,7 @@ Configstore.prototype = Object.create(Object.prototype, {
 				// empty the file if it encounters invalid YAML
 				if (err.name === 'YAMLException') {
 					fs.writeFileSync(this.path, '');
-					return;
+					return {};
 				}
 
 				throw err;
