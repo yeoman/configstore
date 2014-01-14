@@ -28,7 +28,7 @@
     "test": "mocha"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "licenses": [
     {
@@ -38,12 +38,13 @@
   "dependencies": {
     "lodash": "~2.4.1",
     "mkdirp": "~0.3.5",
-    "js-yaml": "~2.1.0",
+    "js-yaml": "~3.0.1",
     "osenv": "0.0.3",
-    "graceful-fs": "~2.0.1"
+    "graceful-fs": "~2.0.1",
+    "uuid": "~1.4.1"
   },
   "devDependencies": {
-    "mocha": "~1.15.1"
+    "mocha": "*"
   },
   "files": [
     "configstore.js"
