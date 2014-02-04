@@ -1,7 +1,7 @@
 {
   "name": "configstore",
   "version": "0.2.0",
-  "description": "Easily load and persist config without having to think about where and how",
+  "description": "Easily load and save config without having to think about where and how",
   "keywords": [
     "conf",
     "config",
@@ -36,12 +36,12 @@
     }
   ],
   "dependencies": {
-    "lodash": "~2.4.1",
     "mkdirp": "~0.3.5",
     "js-yaml": "~3.0.1",
     "osenv": "0.0.3",
     "graceful-fs": "~2.0.1",
-    "uuid": "~1.4.1"
+    "uuid": "~1.4.1",
+    "object-assign": "~0.1.1"
   },
   "devDependencies": {
     "mocha": "*"

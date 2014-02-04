@@ -3,7 +3,7 @@ var path = require('path');
 var os = require('os');
 var fs = require('graceful-fs');
 var osenv = require('osenv');
-var _ = require('lodash');
+var assign = require('object-assign');
 var mkdirp = require('mkdirp');
 var yaml = require('js-yaml');
 var uuid = require('uuid');
@@ -15,7 +15,7 @@ var permissionError = 'You don\'t have access to this file.';
 
 function Configstore(id, defaults) {
 	this.path = path.join(configDir, 'configstore', id + '.yml');
-	this.all = _.extend({}, defaults, this.all);
+	this.all = assign({}, defaults || {}, this.all || {});
 }
 
 Configstore.prototype = Object.create(Object.prototype, {
@@ -68,7 +68,7 @@ Configstore.prototype = Object.create(Object.prototype, {
 	},
 	size: {
 		get: function () {
-			return _.size(this.all);
+			return Object.keys(this.all || {}).length;
 		}
 	}
 });
