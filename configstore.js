@@ -15,7 +15,7 @@ var permissionError = 'You don\'t have access to this file.';
 
 function Configstore(id, defaults) {
 	this.path = path.join(configDir, 'configstore', id + '.yml');
-	this.all = assign({}, defaults || {}, this.all || {});
+	this.all = [defaults || {}, this.all || {}].reduce(assign, {});
 }
 
 Configstore.prototype = Object.create(Object.prototype, {
