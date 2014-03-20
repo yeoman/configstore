@@ -38,8 +38,13 @@ describe('configstore', function () {
 		assert(fs.existsSync(this.conf.path));
 	});
 
-	it('should use default value', function () {
-		var conf = new Configstore('configstore-test', { foo: 'bar' });
+	it('should work for json file', function () {
+		var conf = new Configstore('configstore-test', 'json',  { foo: 'bar' });
+		assert.equal(conf.get('foo'), 'bar');
+	});
+
+	it('should work for yaml file', function () {
+		var conf = new Configstore('configstore-test', 'yaml',  { foo: 'bar' });
 		assert.equal(conf.get('foo'), 'bar');
 	});
 
