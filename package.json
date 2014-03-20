@@ -1,6 +1,6 @@
 {
   "name": "configstore",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Easily load and save config without having to think about where and how",
   "keywords": [
     "conf",
