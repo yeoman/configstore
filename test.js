@@ -38,7 +38,7 @@ describe('configstore', function () {
 		assert(fs.existsSync(this.conf.path));
 	});
 
-	it('should use default value', function () {
+	it('should work for json file', function () {
 		var conf = new Configstore('configstore-test', { foo: 'bar' });
 		assert.equal(conf.get('foo'), 'bar');
 	});

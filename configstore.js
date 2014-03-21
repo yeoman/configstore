@@ -14,8 +14,9 @@ var tmpDir = path.join(getTempDir(), user);
 var configDir = process.env.XDG_CONFIG_HOME || path.join(osenv.home() || tmpDir, '.config');
 var permissionError = 'You don\'t have access to this file.';
 
-function Configstore(id, defaults) {
-	this.path = path.join(configDir, 'configstore', id + '.yml');
+function Configstore(id, defaults, ext) {
+	this.ext = ext || 'json';
+	this.path = path.join(configDir, 'configstore', id + '.' + this.ext);
 	this.all = [defaults || {}, this.all || {}].reduce(assign, {});
 }
 
@@ -23,24 +24,11 @@ Configstore.prototype = Object.create(Object.prototype, {
 	all: {
 		get: function () {
 			try {
-				return yaml.safeLoad(fs.readFileSync(this.path, 'utf8'), {
-					filename: this.path,
-					schema: yaml.JSON_SCHEMA
-				});
-			} catch (err) {
-				// create dir if it doesn't exist
-				if (err.code === 'ENOENT') {
-					mkdirp.sync(path.dirname(this.path));
-					return {};
-				}
-
-				// improve the message of permission errors
-				if (err.code === 'EACCES') {
-					err.message = err.message + '\n' + permissionError + '\n';
-				}
-
-				// empty the file if it encounters invalid YAML
-				if (err.name === 'YAMLException') {
+				return require(this.path);;
+			}
+		    catch (err) {
+				// config file is not present.
+				if (err.code === 'MODULE_NOT_FOUND') {
 					fs.writeFileSync(this.path, '');
 					return {};
 				}
@@ -53,10 +41,7 @@ Configstore.prototype = Object.create(Object.prototype, {
 				// make sure the folder exists, it could have been
 				// deleted meanwhile
 				mkdirp.sync(path.dirname(this.path));
-				fs.writeFileSync(this.path, yaml.safeDump(val, {
-					skipInvalid: true,
-					schema: yaml.JSON_SCHEMA
-				}));
+				fs.writeFileSync(this.path, JSON.stringify(val, null, 4))
 			} catch (err) {
 				// improve the message of permission errors
 				if (err.code === 'EACCES') {
