@@ -39,12 +39,7 @@ describe('configstore', function () {
 	});
 
 	it('should work for json file', function () {
-		var conf = new Configstore('configstore-test', 'json',  { foo: 'bar' });
-		assert.equal(conf.get('foo'), 'bar');
-	});
-
-	it('should work for yaml file', function () {
-		var conf = new Configstore('configstore-test', 'yaml',  { foo: 'bar' });
+		var conf = new Configstore('configstore-test', { foo: 'bar' });
 		assert.equal(conf.get('foo'), 'bar');
 	});
 
