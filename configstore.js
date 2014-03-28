@@ -13,6 +13,13 @@ var user = (osenv.user() || uuid.v4()).replace(/\\/g, '');
 var tmpDir = path.join(getTempDir(), user);
 var configDir = process.env.XDG_CONFIG_HOME || path.join(osenv.home() || tmpDir, '.config');
 var permissionError = 'You don\'t have access to this file.';
+var defaultPathMode = parseInt('0700', 8);
+var writeFileOptions = { mode: parseInt('0600', 8) };
+
+
+if (/^v0\.8\./.test(process.version)) {
+	writeFileOptions = undefined;
+}
 
 function Configstore(id, defaults) {
 	this.path = path.join(configDir, 'configstore', id + '.yml');
@@ -30,7 +37,7 @@ Configstore.prototype = Object.create(Object.prototype, {
 			} catch (err) {
 				// create dir if it doesn't exist
 				if (err.code === 'ENOENT') {
-					mkdirp.sync(path.dirname(this.path));
+					mkdirp.sync(path.dirname(this.path), defaultPathMode);
 					return {};
 				}
 
@@ -41,7 +48,7 @@ Configstore.prototype = Object.create(Object.prototype, {
 
 				// empty the file if it encounters invalid YAML
 				if (err.name === 'YAMLException') {
-					fs.writeFileSync(this.path, '');
+					fs.writeFileSync(this.path, '', writeFileOptions);
 					return {};
 				}
 
@@ -52,11 +59,11 @@ Configstore.prototype = Object.create(Object.prototype, {
 			try {
 				// make sure the folder exists, it could have been
 				// deleted meanwhile
-				mkdirp.sync(path.dirname(this.path));
+				mkdirp.sync(path.dirname(this.path), defaultPathMode);
 				fs.writeFileSync(this.path, yaml.safeDump(val, {
 					skipInvalid: true,
 					schema: yaml.JSON_SCHEMA
-				}));
+				}), writeFileOptions);
 			} catch (err) {
 				// improve the message of permission errors
 				if (err.code === 'EACCES') {
