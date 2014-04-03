@@ -1,4 +1,4 @@
-# configstore [![Build Status](https://secure.travis-ci.org/yeoman/configstore.png?branch=master)](http://travis-ci.org/yeoman/configstore)
+# configstore [![Build Status](https://secure.travis-ci.org/yeoman/configstore.svg?branch=master)](http://travis-ci.org/yeoman/configstore)
 
 Easily load and persist config without having to think about where and how.
 
