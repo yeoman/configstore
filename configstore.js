@@ -23,7 +23,7 @@ if (/^v0\.8\./.test(process.version)) {
 
 function Configstore(id, defaults) {
 	this.path = path.join(configDir, 'configstore', id + '.yml');
-	this.all = [defaults || {}, this.all || {}].reduce(assign, {});
+	this.all = assign({}, defaults || {}, this.all || {});
 }
 
 Configstore.prototype = Object.create(Object.prototype, {
