@@ -1,11 +1,11 @@
 # configstore [![Build Status](https://secure.travis-ci.org/yeoman/configstore.svg?branch=master)](http://travis-ci.org/yeoman/configstore)
 
-Easily load and persist config without having to think about where and how.
+> Easily load and persist config without having to think about where and how.
 
 Config is stored in a YAML file to make it simple for users to edit the config directly themselves. The file is located in `$XDG_CONFIG_HOME` or `~/.config`. Eg: `~/.config/configstore/id-of-your-choosing.yml`
 
 
-## Example usage
+## Usage
 
 ```js
 var Configstore = require('configstore');

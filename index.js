@@ -3,6 +3,7 @@ var path = require('path');
 var os = require('os');
 var fs = require('graceful-fs');
 var osenv = require('osenv');
+var userHome = require('user-home');
 var assign = require('object-assign');
 var mkdirp = require('mkdirp');
 var yaml = require('js-yaml');
@@ -11,7 +12,7 @@ var getTempDir = os.tmpdir || os.tmpDir; //support node 0.8
 
 var user = (osenv.user() || uuid.v4()).replace(/\\/g, '');
 var tmpDir = path.join(getTempDir(), user);
-var configDir = process.env.XDG_CONFIG_HOME || path.join(osenv.home() || tmpDir, '.config');
+var configDir = process.env.XDG_CONFIG_HOME || path.join(userHome || tmpDir, '.config');
 var permissionError = 'You don\'t have access to this file.';
 var defaultPathMode = parseInt('0700', 8);
 var writeFileOptions = { mode: parseInt('0600', 8) };
