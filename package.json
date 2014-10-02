@@ -32,7 +32,7 @@
     "object-assign": "^1.0.0",
     "osenv": "^0.1.0",
     "user-home": "^1.0.0",
-    "uuid": "^1.4.1"
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "mocha": "*"
