@@ -8,11 +8,11 @@ var assign = require('object-assign');
 var mkdirp = require('mkdirp');
 var yaml = require('js-yaml');
 var uuid = require('uuid');
-var getTempDir = os.tmpdir || os.tmpDir; //support node 0.8
+var xdgBasedir = require('xdg-basedir');
+var tempdir = os.tmpdir || os.tmpDir; // support node 0.8
 
 var user = (osenv.user() || uuid.v4()).replace(/\\/g, '');
-var tmpDir = path.join(getTempDir(), user);
-var configDir = process.env.XDG_CONFIG_HOME || path.join(userHome || tmpDir, '.config');
+var configDir = xdgBasedir.config || path.join(tempdir(), user, '.config');
 var permissionError = 'You don\'t have access to this file.';
 var defaultPathMode = parseInt('0700', 8);
 var writeFileOptions = { mode: parseInt('0600', 8) };
