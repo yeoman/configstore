@@ -1,6 +1,6 @@
 # configstore [![Build Status](https://secure.travis-ci.org/yeoman/configstore.svg?branch=master)](http://travis-ci.org/yeoman/configstore)
 
-> Easily load and persist config without having to think about where and how.
+> Easily load and persist config without having to think about where and how
 
 Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`. Eg: `~/.config/configstore/some-id.json`
 
@@ -9,11 +9,11 @@ Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`. Eg
 
 ```js
 var Configstore = require('configstore');
-var packageName = require('./package').name;
+var pkg = require('./package.json');
 
 // Init a Configstore instance with an unique ID eg. package name
 // and optionally some default values
-var conf = new Configstore(packageName, { foo: 'bar' });
+var conf = new Configstore(pkg.name, {foo: 'bar'});
 
 conf.set('awesome', true);
 console.log(conf.get('awesome'));  // true
@@ -24,25 +24,21 @@ console.log(conf.get('awesome'));  // undefined
 ```
 
 
-## Documentation
+## API
 
-### Methods
+### .set(key, value)
 
-#### .set(key, val)
+Set an item.
 
-Set an item
+### .get(key)
 
-#### .get(key)
+Get an item.
 
-Get an item
+### .del(key)
 
-#### .del(key)
+Delete an item.
 
-Delete an item
-
-### Properties
-
-#### .all
+### .all
 
 Get all items as an object or replace the current config with an object:
 
@@ -52,11 +48,11 @@ conf.all = {
 };
 ```
 
-#### .size
+### .size
 
-Get the item count
+Get the item count.
 
-#### .path
+### .path
 
 Get the path to the config file. Can be used to show the user where the config file is located or even better open it for them.
 

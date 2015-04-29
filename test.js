@@ -36,11 +36,13 @@ it('.path', function () {
 });
 
 it('should use default value', function () {
-	var conf = new Configstore('configstore-test', { foo: 'bar' });
+	var conf = new Configstore('configstore-test', {foo: 'bar'});
 	assert.equal(conf.get('foo'), 'bar');
 });
 
 it('make sure `.all` is always an object', function () {
 	fs.unlinkSync(configstorePath);
-	assert.doesNotThrow(function () {this.conf.get('foo')}.bind(this));
+	assert.doesNotThrow(function () {
+		this.conf.get('foo')
+	}.bind(this));
 });
