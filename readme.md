@@ -2,7 +2,7 @@
 
 > Easily load and persist config without having to think about where and how.
 
-Config is stored in a YAML file to make it simple for users to edit the config directly themselves. The file is located in `$XDG_CONFIG_HOME` or `~/.config`. Eg: `~/.config/configstore/id-of-your-choosing.yml`
+Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`. Eg: `~/.config/configstore/some-id.json`
 
 
 ## Usage

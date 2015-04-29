@@ -9,8 +9,11 @@
     "settings",
     "store",
     "editable",
-    "yaml",
-    "yml"
+    "json",
+    "data",
+    "persist",
+    "persistent",
+    "save"
   ],
   "author": {
     "name": "Sindre Sorhus",
@@ -27,7 +30,6 @@
   "license": "BSD",
   "dependencies": {
     "graceful-fs": "^3.0.1",
-    "js-yaml": "^3.1.0",
     "mkdirp": "^0.5.0",
     "object-assign": "^2.0.0",
     "osenv": "^0.1.0",
