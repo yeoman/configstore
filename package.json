@@ -38,7 +38,8 @@
     "xdg-basedir": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "path-exists": "^1.0.0"
   },
   "files": [
     "index.js"

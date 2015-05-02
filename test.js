@@ -1,6 +1,7 @@
 'use strict';
 var assert = require('assert');
 var fs = require('fs');
+var pathExists = require('path-exists');
 var Configstore = require('./');
 var configstorePath = new Configstore('configstore-test').path;
 
@@ -32,7 +33,7 @@ it('.size', function () {
 
 it('.path', function () {
 	this.conf.set('foo', 'bar');
-	assert(fs.existsSync(this.conf.path));
+	assert(pathExists.sync(this.conf.path));
 });
 
 it('should use default value', function () {
