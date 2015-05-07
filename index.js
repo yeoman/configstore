@@ -1,6 +1,5 @@
 'use strict';
 var path = require('path');
-var os = require('os');
 var fs = require('graceful-fs');
 var osenv = require('osenv');
 var userHome = require('user-home');
@@ -8,9 +7,10 @@ var assign = require('object-assign');
 var mkdirp = require('mkdirp');
 var uuid = require('uuid');
 var xdgBasedir = require('xdg-basedir');
+var osTmpdir = require('os-tmpdir');
 
 var user = (osenv.user() || uuid.v4()).replace(/\\/g, '');
-var configDir = xdgBasedir.config || path.join(os.tmpdir(), user, '.config');
+var configDir = xdgBasedir.config || path.join(osTmpdir(), user, '.config');
 var permissionError = 'You don\'t have access to this file.';
 var defaultPathMode = parseInt('0700', 8);
 var writeFileOptions = {mode: parseInt('0600', 8)};
