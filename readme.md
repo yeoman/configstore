@@ -38,6 +38,10 @@ Get an item.
 
 Delete an item.
 
+### .clear()
+
+Delete all items.
+
 ### .all
 
 Get all items as an object or replace the current config with an object:
