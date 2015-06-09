@@ -21,6 +21,13 @@ it('.del()', function () {
 	assert.notEqual(this.conf.get('foo'), 'bar');
 });
 
+it('.clear()', function(){
+	this.conf.set('foo', 'bar');
+	this.conf.set('foo1', 'bar1');
+	this.conf.clear();
+	assert.equal(this.conf.size, 0);
+});
+
 it('.all', function () {
 	this.conf.set('foo', 'bar');
 	assert.equal(this.conf.all.foo, 'bar');
