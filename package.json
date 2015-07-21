@@ -34,7 +34,6 @@
     "object-assign": "^3.0.0",
     "os-tmpdir": "^1.0.0",
     "osenv": "^0.1.0",
-    "user-home": "^2.0.0",
     "uuid": "^2.0.1",
     "xdg-basedir": "^2.0.0"
   },
