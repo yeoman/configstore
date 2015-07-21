@@ -2,7 +2,6 @@
 var path = require('path');
 var fs = require('graceful-fs');
 var osenv = require('osenv');
-var userHome = require('user-home');
 var assign = require('object-assign');
 var mkdirp = require('mkdirp');
 var uuid = require('uuid');
