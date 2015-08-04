@@ -35,6 +35,7 @@
     "os-tmpdir": "^1.0.0",
     "osenv": "^0.1.0",
     "uuid": "^2.0.1",
+    "write-file-atomic": "^1.1.2",
     "xdg-basedir": "^2.0.0"
   },
   "devDependencies": {
