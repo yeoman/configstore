@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 'use strict';
 var assert = require('assert');
 var fs = require('fs');
@@ -21,7 +22,7 @@ it('.del()', function () {
 	assert.notEqual(this.conf.get('foo'), 'bar');
 });
 
-it('.clear()', function(){
+it('.clear()', function () {
 	this.conf.set('foo', 'bar');
 	this.conf.set('foo1', 'bar1');
 	this.conf.clear();
@@ -51,6 +52,6 @@ it('should use default value', function () {
 it('make sure `.all` is always an object', function () {
 	fs.unlinkSync(configstorePath);
 	assert.doesNotThrow(function () {
-		this.conf.get('foo')
+		this.conf.get('foo');
 	}.bind(this));
 });

@@ -88,6 +88,6 @@ Configstore.prototype.del = function (key) {
 
 Configstore.prototype.clear = function () {
 	this.all = {};
-}
+};
 
 module.exports = Configstore;

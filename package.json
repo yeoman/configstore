@@ -22,7 +22,7 @@
   },
   "repository": "yeoman/configstore",
   "scripts": {
-    "test": "mocha"
+    "test": "xo && mocha"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -40,7 +40,8 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "path-exists": "^1.0.0"
+    "path-exists": "^1.0.0",
+    "xo": "*"
   },
   "files": [
     "index.js"
