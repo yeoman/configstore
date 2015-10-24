@@ -15,8 +15,15 @@ var permissionError = 'You don\'t have access to this file.';
 var defaultPathMode = parseInt('0700', 8);
 var writeFileOptions = {mode: parseInt('0600', 8)};
 
-function Configstore(id, defaults) {
-	this.path = path.join(configDir, 'configstore', id + '.json');
+function Configstore(id, defaults, opts) {
+	opts = opts || {};
+
+	opts.useGlobalConfigNamespace = opts.useGlobalConfigNamespace || false;
+	opts.pathPrefix = opts.useGlobalConfigNamespace ?
+		path.join(id, 'config.json') :
+		path.join('configstore', id + '.json');
+	this.path = path.join(configDir, opts.pathPrefix);
+
 	this.all = assign({}, defaults || {}, this.all || {});
 }
 

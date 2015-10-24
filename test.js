@@ -49,6 +49,11 @@ it('should use default value', function () {
 	assert.equal(conf.get('foo'), 'bar');
 });
 
+it('support global namespace path option', function () {
+	var conf = new Configstore('configstore-test', {}, {useGlobalConfigNamespace: true});
+	assert(conf.path.endsWith('configstore-test/config.json'));
+});
+
 it('make sure `.all` is always an object', function () {
 	fs.unlinkSync(configstorePath);
 	assert.doesNotThrow(function () {
