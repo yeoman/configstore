@@ -18,7 +18,7 @@ var writeFileOptions = {mode: parseInt('0600', 8)};
 function Configstore(id, defaults, opts) {
 	opts = opts || {};
 
-	var pathPrefix = opts.useGlobalConfigNamespace ?
+	var pathPrefix = opts.globalConfigPath ?
 		path.join(id, 'config.json') :
 		path.join('configstore', id + '.json');
 	this.path = path.join(configDir, pathPrefix);
