@@ -51,7 +51,8 @@ it('should use default value', function () {
 
 it('support global namespace path option', function () {
 	var conf = new Configstore('configstore-test', {}, {useGlobalConfigNamespace: true});
-	assert(conf.path.endsWith('configstore-test/config.json'));
+	var regex = /configstore-test\/config.json$/;
+	assert(regex.test(conf.path));
 });
 
 it('make sure `.all` is always an object', function () {
