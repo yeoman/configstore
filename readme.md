@@ -2,44 +2,63 @@
 
 > Easily load and persist config without having to think about where and how
 
-Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`. Eg: `~/.config/configstore/some-id.json`
+Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.  
+Example: `~/.config/configstore/some-id.json`
 
 
 ## Usage
 
 ```js
-var Configstore = require('configstore');
-var pkg = require('./package.json');
+const Configstore = require('configstore');
+const pkg = require('./package.json');
 
-// Init a Configstore instance with an unique ID eg. package name
-// and optionally some default values
-var conf = new Configstore(pkg.name, {foo: 'bar'});
+// Init a Configstore instance with an unique ID e.g.
+// package name and optionally some default values
+const conf = new Configstore(pkg.name, {foo: 'bar'});
 
 conf.set('awesome', true);
-console.log(conf.get('awesome'));  // true
-console.log(conf.get('foo'));      // bar
+
+console.log(conf.get('awesome'));
+//=> true
+
+console.log(conf.get('foo'));
+//=> bar
 
 conf.del('awesome');
-console.log(conf.get('awesome'));  // undefined
+
+console.log(conf.get('awesome'));
+//=> undefined
 ```
 
 
 ## API
 
-```js
-var Configstore = require('configstore');
-```
+### Configstore(packageName, [defaults], [options])
 
-### var config = new Configstore(pkg, defaults={}, opts={})
+Create a new Configstore instance `config`.
 
-Create a new configstore instance `config`.
+#### packageName
 
-`pkg` is the name of your Node package. `defaults` is a map with default values
-of keys that do not yet exist in the configuration file.
+Type: `string`
 
-`opts` is a map of creation-time options. When the boolean `globalConfigPath` is
-set, the configuration JSON file will be stored at `$CONFIG/pkg/config.json` as
-opposed to the default `$CONFIG/configstore/pkg.json`.
+Name of your package.
+
+#### defaults
+
+Type: `object`
+
+Default content to init the config store with.
+
+#### options
+
+Type: `object`
+
+##### globalConfigPath
+
+Type: `boolean`  
+Default: `false`
+
+Store the config at `$CONFIG/package-name/config.json` instead of the default `$CONFIG/configstore/package-name.json`. This is not recommended as you might end up conflicting with other tools, rendering the "without having to think" idea moot.
 
 ### config.set(key, value)
 
