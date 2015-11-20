@@ -16,6 +16,15 @@ it('.set() and .get()', function () {
 	assert.equal(this.conf.get('foo'), 'bar');
 });
 
+it('.set() with object and .get()', function () {
+	this.conf.set({
+		foo1: 'bar1',
+		foo2: 'bar2'
+	});
+	assert.equal(this.conf.get('foo1'), 'bar1');
+	assert.equal(this.conf.get('foo2'), 'bar2');
+});
+
 it('.del()', function () {
 	this.conf.set('foo', 'bar');
 	this.conf.del('foo');
