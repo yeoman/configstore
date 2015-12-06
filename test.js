@@ -51,7 +51,7 @@ it('should use default value', function () {
 
 it('support global namespace path option', function () {
 	var conf = new Configstore('configstore-test', {}, {globalConfigPath: true});
-	var regex = /configstore-test\/config.json$/;
+	var regex = /configstore-test(\/|\\)config.json$/;
 	assert(regex.test(conf.path));
 });
 
