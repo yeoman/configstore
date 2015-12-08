@@ -83,7 +83,13 @@ Configstore.prototype.get = function (key) {
 
 Configstore.prototype.set = function (key, val) {
 	var config = this.all;
-	config[key] = val;
+	if (arguments.length === 1) {
+		Object.keys(key).forEach(function (k) {
+			config[k] = key[k];
+		});
+	} else {
+		config[key] = val;
+	}
 	this.all = config;
 };
 

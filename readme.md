@@ -64,6 +64,10 @@ Store the config at `$CONFIG/package-name/config.json` instead of the default `$
 
 Set an item.
 
+### config.set(object)
+
+Set multiple items at once.
+
 ### config.get(key)
 
 Get an item.
