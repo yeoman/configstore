@@ -16,6 +16,9 @@ var defaultPathMode = parseInt('0700', 8);
 var writeFileOptions = {mode: parseInt('0600', 8)};
 
 function Configstore(id, defaults, opts) {
+	var self = this
+	if (!(self instanceof Configstore)) return new Configstore(id, defaults, opts)
+	
 	opts = opts || {};
 
 	var pathPrefix = opts.globalConfigPath ?
