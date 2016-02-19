@@ -109,5 +109,5 @@ Get the path to the config file. Can be used to show the user where the config f
 
 ## License
 
-[BSD license](http://opensource.org/licenses/bsd-license.php)
+[BSD license](http://opensource.org/licenses/bsd-license.php)  
 Copyright Google
