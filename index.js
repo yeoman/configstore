@@ -96,12 +96,7 @@ Configstore.prototype.set = function (key, val) {
 
 Configstore.prototype.del = function (key) {
 	var config = this.all;
-	var pathArr = key.split('.');
-
-	for (var i = 0; i < pathArr.length; i++) {
-		delete config[pathArr[i]];
-	}
-
+	dotProp.delete(config, key);
 	this.all = config;
 };
 

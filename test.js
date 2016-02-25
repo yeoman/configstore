@@ -47,6 +47,10 @@ it('.del()', function () {
 	assert.notEqual(this.conf.get('baz.boo'), true);
 	this.conf.del('baz.foo');
 	assert.notEqual(this.conf.get('baz.foo'), {bar: 'baz'});
+	this.conf.set('foo.bar.baz', {awesome: 'icecream'});
+	this.conf.set('foo.bar.zoo', {awesome: 'redpanda'});
+	this.conf.del('foo.bar.baz');
+	assert.equal(this.conf.get('foo.bar.zoo.awesome'), 'redpanda');
 });
 
 it('.clear()', function () {
