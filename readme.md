@@ -24,6 +24,7 @@ console.log(conf.get('awesome'));
 console.log(conf.get('foo'));
 //=> bar
 
+// use dot notation to access nested properties (provided by `dot-prop` module)
 conf.set('bar.baz', true);
 
 console.log(conf.get('bar'));
