@@ -8,6 +8,7 @@ var uuid = require('uuid');
 var xdgBasedir = require('xdg-basedir');
 var osTmpdir = require('os-tmpdir');
 var writeFileAtomic = require('write-file-atomic');
+var dotProp = require('dot-prop');
 
 var user = (osenv.user() || uuid.v4()).replace(/\\/g, '');
 var configDir = xdgBasedir.config || path.join(osTmpdir(), user, '.config');
@@ -78,24 +79,24 @@ Configstore.prototype = Object.create(Object.prototype, {
 });
 
 Configstore.prototype.get = function (key) {
-	return this.all[key];
+	return dotProp.get(this.all, key);
 };
 
 Configstore.prototype.set = function (key, val) {
 	var config = this.all;
 	if (arguments.length === 1) {
 		Object.keys(key).forEach(function (k) {
-			config[k] = key[k];
+			dotProp.set(config, k, key[k]);
 		});
 	} else {
-		config[key] = val;
+		dotProp.set(config, key, val);
 	}
 	this.all = config;
 };
 
 Configstore.prototype.del = function (key) {
 	var config = this.all;
-	delete config[key];
+	dotProp.delete(config, key);
 	this.all = config;
 };
 

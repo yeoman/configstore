@@ -2,7 +2,7 @@
 
 > Easily load and persist config without having to think about where and how
 
-Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.  
+Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.<br>
 Example: `~/.config/configstore/some-id.json`
 
 
@@ -23,6 +23,14 @@ console.log(conf.get('awesome'));
 
 console.log(conf.get('foo'));
 //=> bar
+
+conf.set('bar.baz', true);
+
+console.log(conf.get('bar'));
+//=> { baz: true }
+
+console.log(conf.all);
+//=> { foo: 'bar', awesome: true, bar: { baz: true } }
 
 conf.del('awesome');
 
@@ -55,7 +63,7 @@ Type: `object`
 
 ##### globalConfigPath
 
-Type: `boolean`  
+Type: `boolean`<br>
 Default: `false`
 
 Store the config at `$CONFIG/package-name/config.json` instead of the default `$CONFIG/configstore/package-name.json`. This is not recommended as you might end up conflicting with other tools, rendering the "without having to think" idea moot.
@@ -101,5 +109,5 @@ Get the path to the config file. Can be used to show the user where the config f
 
 ## License
 
-[BSD license](http://opensource.org/licenses/bsd-license.php)  
+[BSD license](http://opensource.org/licenses/bsd-license.php)<br>
 Copyright Google
