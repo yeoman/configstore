@@ -36,6 +36,14 @@ test('.set() with object and .get()', t => {
 	t.is(t.context.conf.get('baz.foo.bar'), 'baz');
 });
 
+test('.has()', t => {
+	t.context.conf.set('foo', '🦄');
+	t.context.conf.set('baz.boo', '🦄');
+	t.true(t.context.conf.has('foo'));
+	t.true(t.context.conf.has('baz.boo'));
+	t.false(t.context.conf.has('missing'));
+});
+
 test('.del()', t => {
 	t.context.conf.set('foo', 'bar');
 	t.context.conf.set('baz.boo', true);

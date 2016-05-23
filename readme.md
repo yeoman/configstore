@@ -81,6 +81,10 @@ Set multiple items at once.
 
 Get an item.
 
+### config.has(key)
+
+Check if item exists.
+
 ### config.del(key)
 
 Delete an item.
