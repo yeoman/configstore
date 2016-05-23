@@ -1,25 +1,24 @@
-/* eslint-env mocha */
-'use strict';
-var assert = require('assert');
-var fs = require('fs');
-var pathExists = require('path-exists');
-var Configstore = require('./');
-var configstorePath = new Configstore('configstore-test').path;
+import fs from 'fs';
+import {serial as test} from 'ava';
+import pathExists from 'path-exists';
+import Configstore from './';
 
-beforeEach(function () {
+const configstorePath = new Configstore('configstore-test').path;
+
+test.beforeEach(t => {
 	fs.unlinkSync(configstorePath);
-	this.conf = new Configstore('configstore-test');
+	t.context.conf = new Configstore('configstore-test');
 });
 
-it('.set() and .get()', function () {
-	this.conf.set('foo', 'bar');
-	this.conf.set('baz.boo', true);
-	assert.equal(this.conf.get('foo'), 'bar');
-	assert.equal(this.conf.get('baz.boo'), true);
+test('.set() and .get()', t => {
+	t.context.conf.set('foo', 'bar');
+	t.context.conf.set('baz.boo', true);
+	t.is(t.context.conf.get('foo'), 'bar');
+	t.is(t.context.conf.get('baz.boo'), true);
 });
 
-it('.set() with object and .get()', function () {
-	this.conf.set({
+test('.set() with object and .get()', t => {
+	t.context.conf.set({
 		foo1: 'bar1',
 		foo2: 'bar2',
 		baz: {
@@ -29,69 +28,67 @@ it('.set() with object and .get()', function () {
 			}
 		}
 	});
-	assert.equal(this.conf.get('foo1'), 'bar1');
-	assert.equal(this.conf.get('foo2'), 'bar2');
-	assert.deepEqual(this.conf.get('baz'), {boo: 'foo', foo: {bar: 'baz'}});
-	assert.equal(this.conf.get('baz.boo'), 'foo');
-	assert.deepEqual(this.conf.get('baz.foo'), {bar: 'baz'});
-	assert.equal(this.conf.get('baz.foo.bar'), 'baz');
+	t.is(t.context.conf.get('foo1'), 'bar1');
+	t.is(t.context.conf.get('foo2'), 'bar2');
+	t.deepEqual(t.context.conf.get('baz'), {boo: 'foo', foo: {bar: 'baz'}});
+	t.is(t.context.conf.get('baz.boo'), 'foo');
+	t.deepEqual(t.context.conf.get('baz.foo'), {bar: 'baz'});
+	t.is(t.context.conf.get('baz.foo.bar'), 'baz');
 });
 
-it('.del()', function () {
-	this.conf.set('foo', 'bar');
-	this.conf.set('baz.boo', true);
-	this.conf.set('baz.foo.bar', 'baz');
-	this.conf.del('foo');
-	assert.notEqual(this.conf.get('foo'), 'bar');
-	this.conf.del('baz.boo');
-	assert.notEqual(this.conf.get('baz.boo'), true);
-	this.conf.del('baz.foo');
-	assert.notEqual(this.conf.get('baz.foo'), {bar: 'baz'});
-	this.conf.set('foo.bar.baz', {awesome: 'icecream'});
-	this.conf.set('foo.bar.zoo', {awesome: 'redpanda'});
-	this.conf.del('foo.bar.baz');
-	assert.equal(this.conf.get('foo.bar.zoo.awesome'), 'redpanda');
+test('.del()', t => {
+	t.context.conf.set('foo', 'bar');
+	t.context.conf.set('baz.boo', true);
+	t.context.conf.set('baz.foo.bar', 'baz');
+	t.context.conf.del('foo');
+	t.not(t.context.conf.get('foo'), 'bar');
+	t.context.conf.del('baz.boo');
+	t.not(t.context.conf.get('baz.boo'), true);
+	t.context.conf.del('baz.foo');
+	t.not(t.context.conf.get('baz.foo'), {bar: 'baz'});
+	t.context.conf.set('foo.bar.baz', {awesome: 'icecream'});
+	t.context.conf.set('foo.bar.zoo', {awesome: 'redpanda'});
+	t.context.conf.del('foo.bar.baz');
+	t.is(t.context.conf.get('foo.bar.zoo.awesome'), 'redpanda');
 });
 
-it('.clear()', function () {
-	this.conf.set('foo', 'bar');
-	this.conf.set('foo1', 'bar1');
-	this.conf.set('baz.boo', true);
-	this.conf.clear();
-	assert.equal(this.conf.size, 0);
+test('.clear()', t => {
+	t.context.conf.set('foo', 'bar');
+	t.context.conf.set('foo1', 'bar1');
+	t.context.conf.set('baz.boo', true);
+	t.context.conf.clear();
+	t.is(t.context.conf.size, 0);
 });
 
-it('.all', function () {
-	this.conf.set('foo', 'bar');
-	this.conf.set('baz.boo', true);
-	assert.equal(this.conf.all.foo, 'bar');
-	assert.deepEqual(this.conf.all.baz, {boo: true});
+test('.all', t => {
+	t.context.conf.set('foo', 'bar');
+	t.context.conf.set('baz.boo', true);
+	t.is(t.context.conf.all.foo, 'bar');
+	t.deepEqual(t.context.conf.all.baz, {boo: true});
 });
 
-it('.size', function () {
-	this.conf.set('foo', 'bar');
-	assert.equal(this.conf.size, 1);
+test('.size', t => {
+	t.context.conf.set('foo', 'bar');
+	t.is(t.context.conf.size, 1);
 });
 
-it('.path', function () {
-	this.conf.set('foo', 'bar');
-	assert(pathExists.sync(this.conf.path));
+test('.path', t => {
+	t.context.conf.set('foo', 'bar');
+	t.true(pathExists.sync(t.context.conf.path));
 });
 
-it('should use default value', function () {
-	var conf = new Configstore('configstore-test', {foo: 'bar'});
-	assert.equal(conf.get('foo'), 'bar');
+test('use default value', t => {
+	const conf = new Configstore('configstore-test', {foo: 'bar'});
+	t.is(conf.get('foo'), 'bar');
 });
 
-it('support global namespace path option', function () {
-	var conf = new Configstore('configstore-test', {}, {globalConfigPath: true});
-	var regex = /configstore-test(\/|\\)config.json$/;
-	assert(regex.test(conf.path));
+test('support global namespace path option', t => {
+	const conf = new Configstore('configstore-test', {}, {globalConfigPath: true});
+	const regex = /configstore-test(\/|\\)config.json$/;
+	t.true(regex.test(conf.path));
 });
 
-it('make sure `.all` is always an object', function () {
+test('ensure `.all` is always an object', t => {
 	fs.unlinkSync(configstorePath);
-	assert.doesNotThrow(function () {
-		this.conf.get('foo');
-	}.bind(this));
+	t.notThrows(() => t.context.conf.get('foo'));
 });
