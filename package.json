@@ -2,34 +2,38 @@
   "name": "configstore",
   "version": "2.0.0",
   "description": "Easily load and save config without having to think about where and how",
+  "license": "BSD-2-Clause",
+  "repository": "yeoman/configstore",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo && mocha"
+  },
+  "files": [
+    "index.js"
+  ],
   "keywords": [
-    "conf",
     "config",
+    "store",
+    "storage",
+    "conf",
     "configuration",
     "settings",
-    "store",
-    "editable",
+    "preferences",
     "json",
     "data",
     "persist",
     "persistent",
     "save"
   ],
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "repository": "yeoman/configstore",
-  "scripts": {
-    "test": "xo && mocha"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "license": "BSD-2-Clause",
   "dependencies": {
-    "dot-prop": "^2.3.0",
+    "dot-prop": "^3.0.0",
     "graceful-fs": "^4.1.2",
     "mkdirp": "^0.5.0",
     "object-assign": "^4.0.1",
@@ -41,10 +45,7 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "path-exists": "^2.0.0",
+    "path-exists": "^3.0.0",
     "xo": "*"
-  },
-  "files": [
-    "index.js"
-  ]
+  }
 }
