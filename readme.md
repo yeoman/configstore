@@ -33,7 +33,7 @@ console.log(conf.get('bar'));
 console.log(conf.all);
 //=> { foo: 'bar', awesome: true, bar: { baz: true } }
 
-conf.del('awesome');
+conf.delete('awesome');
 
 console.log(conf.get('awesome'));
 //=> undefined
@@ -85,7 +85,7 @@ Get an item.
 
 Check if item exists.
 
-### config.del(key)
+### config.delete(key)
 
 Delete an item.
 

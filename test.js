@@ -44,19 +44,25 @@ test('.has()', t => {
 	t.false(t.context.conf.has('missing'));
 });
 
-test('.del()', t => {
+test('.del() - SOFT-DEPRECATED', t => {
+	t.context.conf.set('foo', 'bar');
+	t.context.conf.del('foo');
+	t.not(t.context.conf.get('foo'), 'bar');
+});
+
+test('.delete()', t => {
 	t.context.conf.set('foo', 'bar');
 	t.context.conf.set('baz.boo', true);
 	t.context.conf.set('baz.foo.bar', 'baz');
-	t.context.conf.del('foo');
+	t.context.conf.delete('foo');
 	t.not(t.context.conf.get('foo'), 'bar');
-	t.context.conf.del('baz.boo');
+	t.context.conf.delete('baz.boo');
 	t.not(t.context.conf.get('baz.boo'), true);
-	t.context.conf.del('baz.foo');
+	t.context.conf.delete('baz.foo');
 	t.not(t.context.conf.get('baz.foo'), {bar: 'baz'});
 	t.context.conf.set('foo.bar.baz', {awesome: 'icecream'});
 	t.context.conf.set('foo.bar.zoo', {awesome: 'redpanda'});
-	t.context.conf.del('foo.bar.baz');
+	t.context.conf.delete('foo.bar.baz');
 	t.is(t.context.conf.get('foo.bar.zoo.awesome'), 'redpanda');
 });
 

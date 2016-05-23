@@ -98,7 +98,7 @@ Configstore.prototype.has = function (key) {
 	return dotProp.has(this.all, key);
 };
 
-Configstore.prototype.del = function (key) {
+Configstore.prototype.delete = Configstore.prototype.del = function (key) {
 	var config = this.all;
 	dotProp.delete(config, key);
 	this.all = config;
