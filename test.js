@@ -30,7 +30,12 @@ test('.set() with object and .get()', t => {
 	});
 	t.is(t.context.conf.get('foo1'), 'bar1');
 	t.is(t.context.conf.get('foo2'), 'bar2');
-	t.deepEqual(t.context.conf.get('baz'), {boo: 'foo', foo: {bar: 'baz'}});
+	t.deepEqual(t.context.conf.get('baz'), {
+		boo: 'foo',
+		foo: {
+			bar: 'baz'
+		}
+	});
 	t.is(t.context.conf.get('baz.boo'), 'foo');
 	t.deepEqual(t.context.conf.get('baz.foo'), {bar: 'baz'});
 	t.is(t.context.conf.get('baz.foo.bar'), 'baz');
