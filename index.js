@@ -1,12 +1,11 @@
 'use strict';
 var path = require('path');
+var osTmpdir = require('os').tmpdir;
 var fs = require('graceful-fs');
 var osenv = require('osenv');
-var assign = require('object-assign');
 var mkdirp = require('mkdirp');
 var uuid = require('uuid');
 var xdgBasedir = require('xdg-basedir');
-var osTmpdir = require('os-tmpdir');
 var writeFileAtomic = require('write-file-atomic');
 var dotProp = require('dot-prop');
 
@@ -25,7 +24,7 @@ function Configstore(id, defaults, opts) {
 
 	this.path = path.join(configDir, pathPrefix);
 
-	this.all = assign({}, defaults || {}, this.all || {});
+	this.all = Object.assign({}, defaults || {}, this.all || {});
 }
 
 Configstore.prototype = Object.create(Object.prototype, {
