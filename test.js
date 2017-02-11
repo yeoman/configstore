@@ -1,7 +1,6 @@
 import fs from 'fs';
 import {serial as test} from 'ava';
-import pathExists from 'path-exists';
-import Configstore from './';
+import Configstore from '.';
 
 const configstorePath = new Configstore('configstore-test').path;
 
@@ -93,7 +92,7 @@ test('.size', t => {
 
 test('.path', t => {
 	t.context.conf.set('foo', 'bar');
-	t.true(pathExists.sync(t.context.conf.path));
+	t.true(fs.existsSync(t.context.conf.path));
 });
 
 test('use default value', t => {

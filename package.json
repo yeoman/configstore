@@ -43,7 +43,6 @@
   },
   "devDependencies": {
     "ava": "*",
-    "path-exists": "^3.0.0",
     "xo": "*"
   }
 }
