@@ -95,10 +95,6 @@ class Configstore {
 	clear() {
 		this.all = {};
 	}
-	// DEPRECATED
-	del(key) {
-		this.delete(key);
-	}
 }
 
 module.exports = Configstore;

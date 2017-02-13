@@ -48,12 +48,6 @@ test('.has()', t => {
 	t.false(t.context.conf.has('missing'));
 });
 
-test('.del() - SOFT-DEPRECATED', t => {
-	t.context.conf.set('foo', 'bar');
-	t.context.conf.del('foo');
-	t.not(t.context.conf.get('foo'), 'bar');
-});
-
 test('.delete()', t => {
 	t.context.conf.set('foo', 'bar');
 	t.context.conf.set('baz.boo', true);
