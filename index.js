@@ -1,16 +1,14 @@
 'use strict';
 const path = require('path');
-const osTmpdir = require('os').tmpdir;
+const os = require('os');
 const fs = require('graceful-fs');
-const osenv = require('osenv');
 const mkdirp = require('mkdirp');
-const uuid = require('uuid');
 const xdgBasedir = require('xdg-basedir');
 const writeFileAtomic = require('write-file-atomic');
 const dotProp = require('dot-prop');
+const uniqueString = require('unique-string');
 
-const user = (osenv.user() || uuid.v4()).replace(/\\/g, '');
-const configDir = xdgBasedir.config || path.join(osTmpdir(), user, '.config');
+const configDir = xdgBasedir.config || path.join(os.tmpdir(), uniqueString());
 const permissionError = 'You don\'t have access to this file.';
 const defaultPathMode = 0o0700;
 const writeFileOptions = {mode: 0o0600};
