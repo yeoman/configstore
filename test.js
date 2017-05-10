@@ -10,14 +10,16 @@ test.beforeEach(t => {
 });
 
 test('.set() and .get()', t => {
-	t.context.conf.set('foo', 'bar');
-	t.context.conf.set('baz.boo', true);
-	t.is(t.context.conf.get('foo'), 'bar');
-	t.is(t.context.conf.get('baz.boo'), true);
+	const {conf} = t.context;
+	conf.set('foo', 'bar');
+	conf.set('baz.boo', true);
+	t.is(conf.get('foo'), 'bar');
+	t.is(conf.get('baz.boo'), true);
 });
 
 test('.set() with object and .get()', t => {
-	t.context.conf.set({
+	const {conf} = t.context;
+	conf.set({
 		foo1: 'bar1',
 		foo2: 'bar2',
 		baz: {
@@ -27,66 +29,72 @@ test('.set() with object and .get()', t => {
 			}
 		}
 	});
-	t.is(t.context.conf.get('foo1'), 'bar1');
-	t.is(t.context.conf.get('foo2'), 'bar2');
-	t.deepEqual(t.context.conf.get('baz'), {
+	t.is(conf.get('foo1'), 'bar1');
+	t.is(conf.get('foo2'), 'bar2');
+	t.deepEqual(conf.get('baz'), {
 		boo: 'foo',
 		foo: {
 			bar: 'baz'
 		}
 	});
-	t.is(t.context.conf.get('baz.boo'), 'foo');
-	t.deepEqual(t.context.conf.get('baz.foo'), {bar: 'baz'});
-	t.is(t.context.conf.get('baz.foo.bar'), 'baz');
+	t.is(conf.get('baz.boo'), 'foo');
+	t.deepEqual(conf.get('baz.foo'), {bar: 'baz'});
+	t.is(conf.get('baz.foo.bar'), 'baz');
 });
 
 test('.has()', t => {
-	t.context.conf.set('foo', '🦄');
-	t.context.conf.set('baz.boo', '🦄');
-	t.true(t.context.conf.has('foo'));
-	t.true(t.context.conf.has('baz.boo'));
-	t.false(t.context.conf.has('missing'));
+	const {conf} = t.context;
+	conf.set('foo', '🦄');
+	conf.set('baz.boo', '🦄');
+	t.true(conf.has('foo'));
+	t.true(conf.has('baz.boo'));
+	t.false(conf.has('missing'));
 });
 
 test('.delete()', t => {
-	t.context.conf.set('foo', 'bar');
-	t.context.conf.set('baz.boo', true);
-	t.context.conf.set('baz.foo.bar', 'baz');
-	t.context.conf.delete('foo');
-	t.not(t.context.conf.get('foo'), 'bar');
-	t.context.conf.delete('baz.boo');
-	t.not(t.context.conf.get('baz.boo'), true);
-	t.context.conf.delete('baz.foo');
-	t.not(t.context.conf.get('baz.foo'), {bar: 'baz'});
-	t.context.conf.set('foo.bar.baz', {awesome: 'icecream'});
-	t.context.conf.set('foo.bar.zoo', {awesome: 'redpanda'});
-	t.context.conf.delete('foo.bar.baz');
-	t.is(t.context.conf.get('foo.bar.zoo.awesome'), 'redpanda');
+	const {conf} = t.context;
+	conf.set('foo', 'bar');
+	conf.set('baz.boo', true);
+	conf.set('baz.foo.bar', 'baz');
+	conf.delete('foo');
+	t.not(conf.get('foo'), 'bar');
+	conf.delete('baz.boo');
+	t.not(conf.get('baz.boo'), true);
+	conf.delete('baz.foo');
+	t.not(conf.get('baz.foo'), {bar: 'baz'});
+	conf.set('foo.bar.baz', {awesome: 'icecream'});
+	conf.set('foo.bar.zoo', {awesome: 'redpanda'});
+	conf.delete('foo.bar.baz');
+	t.is(conf.get('foo.bar.zoo.awesome'), 'redpanda');
 });
 
 test('.clear()', t => {
-	t.context.conf.set('foo', 'bar');
-	t.context.conf.set('foo1', 'bar1');
-	t.context.conf.set('baz.boo', true);
-	t.context.conf.clear();
-	t.is(t.context.conf.size, 0);
+	const {conf} = t.context;
+	conf.set('foo', 'bar');
+	conf.set('foo1', 'bar1');
+	conf.set('baz.boo', true);
+	conf.clear();
+	t.is(conf.size, 0);
 });
 
 test('.all', t => {
-	t.context.conf.set('foo', 'bar');
-	t.context.conf.set('baz.boo', true);
-	t.is(t.context.conf.all.foo, 'bar');
-	t.deepEqual(t.context.conf.all.baz, {boo: true});
+	const {conf} = t.context;
+	conf.set('foo', 'bar');
+	conf.set('baz.boo', true);
+	t.is(conf.all.foo, 'bar');
+	t.deepEqual(conf.all.baz, {boo: true});
 });
 
 test('.size', t => {
-	t.context.conf.set('foo', 'bar');
-	t.is(t.context.conf.size, 1);
+	const {conf} = t.context;
+	conf.set('foo', 'bar');
+	t.is(conf.size, 1);
 });
 
 test('.path', t => {
-	t.context.conf.set('foo', 'bar');
-	t.true(fs.existsSync(t.context.conf.path));
+	const {conf} = t.context;
+	conf.set('foo', 'bar');
+	t.true(fs.existsSync(conf.path));
 });
 
 test('use default value', t => {
