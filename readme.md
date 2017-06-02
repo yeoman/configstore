@@ -1,5 +1,7 @@
 # configstore [![Build Status](https://travis-ci.org/yeoman/configstore.svg?branch=master)](https://travis-ci.org/yeoman/configstore)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/yeoman/configstore.svg)](https://greenkeeper.io/)
+
 > Easily load and persist config without having to think about where and how
 
 Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.<br>
