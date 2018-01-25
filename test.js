@@ -5,7 +5,7 @@ import Configstore from '.';
 const configstorePath = new Configstore('configstore-test').path;
 
 test.beforeEach(t => {
-	fs.unlinkSync(configstorePath);
+	cleanUpFile();
 	t.context.conf = new Configstore('configstore-test');
 });
 
@@ -109,6 +109,20 @@ test('support global namespace path option', t => {
 });
 
 test('ensure `.all` is always an object', t => {
-	fs.unlinkSync(configstorePath);
+	cleanUpFile();
 	t.notThrows(() => t.context.conf.get('foo'));
 });
+
+test('the store is NOT created until write', t => {
+	cleanUpFile();
+	const conf = new Configstore('configstore-test');
+	t.false(fs.existsSync(conf.path));
+	conf.set('foo', 'bar');
+	t.true(fs.existsSync(conf.path));
+});
+
+function cleanUpFile() {
+	if (fs.existsSync(configstorePath)) {
+		fs.unlinkSync(configstorePath);
+	}
+}
