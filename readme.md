@@ -63,6 +63,15 @@ Default: `false`
 
 Store the config at `$CONFIG/package-name/config.json` instead of the default `$CONFIG/configstore/package-name.json`. This is not recommended as you might end up conflicting with other tools, rendering the "without having to think" idea moot.
 
+##### configPath
+
+Type: `string`<br>
+Default: Automatic
+
+**Please don't use this option unless absolutely necessary and you know what you're doing.**
+
+Set the path of the config file. Overrides the `packageName` and `globalConfigPath` options.
+
 ### Instance
 
 You can use [dot-notation](https://github.com/sindresorhus/dot-prop) in a `key` to access nested properties.

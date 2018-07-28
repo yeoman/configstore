@@ -1,4 +1,6 @@
 import fs from 'fs';
+import path from 'path';
+import os from 'os';
 import {serial as test} from 'ava';
 import Configstore from '.';
 
@@ -102,9 +104,16 @@ test('use default value', t => {
 	t.is(conf.get('foo'), 'bar');
 });
 
-test('support global namespace path option', t => {
+test('support `globalConfigPath` option', t => {
 	const conf = new Configstore('configstore-test', {}, {globalConfigPath: true});
 	const regex = /configstore-test(\/|\\)config.json$/;
+	t.true(regex.test(conf.path));
+});
+
+test('support `configPath` option', t => {
+	const customPath = path.join(os.tmpdir(), 'configstore-custom-path', 'foo.json');
+	const conf = new Configstore('ignored-namespace', {}, {globalConfigPath: true, configPath: customPath});
+	const regex = /configstore-custom-path(\/|\\)foo.json$/;
 	t.true(regex.test(conf.path));
 });
 

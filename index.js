@@ -21,11 +21,13 @@ class Configstore {
 			path.join(id, 'config.json') :
 			path.join('configstore', `${id}.json`);
 
-		this.path = path.join(configDir, pathPrefix);
+		this.path = opts.configPath || path.join(configDir, pathPrefix);
+
 		if (defaults) {
 			this.all = Object.assign({}, defaults, this.all);
 		}
 	}
+
 	get all() {
 		try {
 			return JSON.parse(fs.readFileSync(this.path, 'utf8'));
@@ -49,6 +51,7 @@ class Configstore {
 			throw err;
 		}
 	}
+
 	set all(val) {
 		try {
 			// Make sure the folder exists as it could have been deleted in the meantime
@@ -64,12 +67,15 @@ class Configstore {
 			throw err;
 		}
 	}
+
 	get size() {
 		return Object.keys(this.all || {}).length;
 	}
+
 	get(key) {
 		return dotProp.get(this.all, key);
 	}
+
 	set(key, val) {
 		const config = this.all;
 
@@ -83,14 +89,17 @@ class Configstore {
 
 		this.all = config;
 	}
+
 	has(key) {
 		return dotProp.has(this.all, key);
 	}
+
 	delete(key) {
 		const config = this.all;
 		dotProp.delete(config, key);
 		this.all = config;
 	}
+
 	clear() {
 		this.all = {};
 	}
