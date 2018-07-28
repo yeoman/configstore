@@ -21,7 +21,7 @@ class Configstore {
 			path.join(id, 'config.json') :
 			path.join('configstore', `${id}.json`);
 
-		this.path = path.join(configDir, pathPrefix);
+		this.path = opts.configPath || path.join(configDir, pathPrefix);
 		this.all = Object.assign({}, defaults, this.all);
 	}
 
