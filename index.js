@@ -24,7 +24,7 @@ class Configstore {
 		this.path = opts.configPath || path.join(configDir, pathPrefix);
 
 		if (defaults) {
-			this.all = Object.assign({}, defaults, this.all);
+			  this.all = Object.assign({}, defaults, this.all);
 		}
 	}
 
