@@ -14,57 +14,55 @@ const makeDirOptions = {mode: 0o0700};
 const writeFileOptions = {mode: 0o0600};
 
 class Configstore {
-	constructor(id, defaults, opts) {
-		opts = opts || {};
-
-		const pathPrefix = opts.globalConfigPath ?
+	constructor(id, defaults, options = {}) {
+		const pathPrefix = options.globalConfigPath ?
 			path.join(id, 'config.json') :
 			path.join('configstore', `${id}.json`);
 
-		this.path = opts.configPath || path.join(configDir, pathPrefix);
+		this.path = options.configPath || path.join(configDir, pathPrefix);
 
 		if (defaults) {
-			  this.all = Object.assign({}, defaults, this.all);
+			this.all = Object.assign({}, defaults, this.all);
 		}
 	}
 
 	get all() {
 		try {
 			return JSON.parse(fs.readFileSync(this.path, 'utf8'));
-		} catch (err) {
-			// Create dir if it doesn't exist
-			if (err.code === 'ENOENT') {
+		} catch (error) {
+			// Create directory if it doesn't exist
+			if (error.code === 'ENOENT') {
 				return {};
 			}
 
 			// Improve the message of permission errors
-			if (err.code === 'EACCES') {
-				err.message = `${err.message}\n${permissionError}\n`;
+			if (error.code === 'EACCES') {
+				error.message = `${error.message}\n${permissionError}\n`;
 			}
 
 			// Empty the file if it encounters invalid JSON
-			if (err.name === 'SyntaxError') {
+			if (error.name === 'SyntaxError') {
 				writeFileAtomic.sync(this.path, '', writeFileOptions);
 				return {};
 			}
 
-			throw err;
+			throw error;
 		}
 	}
 
-	set all(val) {
+	set all(value) {
 		try {
 			// Make sure the folder exists as it could have been deleted in the meantime
 			makeDir.sync(path.dirname(this.path), makeDirOptions);
 
-			writeFileAtomic.sync(this.path, JSON.stringify(val, null, '\t'), writeFileOptions);
-		} catch (err) {
+			writeFileAtomic.sync(this.path, JSON.stringify(value, null, '\t'), writeFileOptions);
+		} catch (error) {
 			// Improve the message of permission errors
-			if (err.code === 'EACCES') {
-				err.message = `${err.message}\n${permissionError}\n`;
+			if (error.code === 'EACCES') {
+				error.message = `${error.message}\n${permissionError}\n`;
 			}
 
-			throw err;
+			throw error;
 		}
 	}
 
@@ -76,7 +74,7 @@ class Configstore {
 		return dotProp.get(this.all, key);
 	}
 
-	set(key, val) {
+	set(key, value) {
 		const config = this.all;
 
 		if (arguments.length === 1) {
@@ -84,7 +82,7 @@ class Configstore {
 				dotProp.set(config, k, key[k]);
 			}
 		} else {
-			dotProp.set(config, key, val);
+			dotProp.set(config, key, value);
 		}
 
 		this.all = config;

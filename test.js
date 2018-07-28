@@ -6,6 +6,12 @@ import Configstore from '.';
 
 const configstorePath = new Configstore('configstore-test').path;
 
+const cleanUpFile = () => {
+	if (fs.existsSync(configstorePath)) {
+		fs.unlinkSync(configstorePath);
+	}
+};
+
 test.beforeEach(t => {
 	cleanUpFile();
 	t.context.conf = new Configstore('configstore-test');
@@ -129,9 +135,3 @@ test('the store is NOT created until write', t => {
 	conf.set('foo', 'bar');
 	t.true(fs.existsSync(conf.path));
 });
-
-function cleanUpFile() {
-	if (fs.existsSync(configstorePath)) {
-		fs.unlinkSync(configstorePath);
-	}
-}

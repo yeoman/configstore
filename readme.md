@@ -8,6 +8,13 @@ Example: `~/.config/configstore/some-id.json`
 *If you need this for Electron, check out [`electron-store`](https://github.com/sindresorhus/electron-store) instead.*
 
 
+## Install
+
+```
+$ npm install configstore
+```
+
+
 ## Usage
 
 ```js
