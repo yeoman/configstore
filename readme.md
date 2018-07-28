@@ -66,9 +66,11 @@ Store the config at `$CONFIG/package-name/config.json` instead of the default `$
 ##### configPath
 
 Type: `string`<br>
-Default: `undefined`
+Default: Automatic
 
-Set the path of the config file.  Overrides the `packageName` and `globalConfigPath` options.
+**Please don't use this option unless absolutely necessary and you know what you're doing.**
+
+Set the path of the config file. Overrides the `packageName` and `globalConfigPath` options.
 
 ### Instance
 
