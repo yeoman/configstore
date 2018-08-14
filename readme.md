@@ -79,6 +79,39 @@ Default: Automatic
 
 Set the path of the config file. Overrides the `packageName` and `globalConfigPath` options.
 
+##### serde
+
+Type: `Object`<br>
+Default:
+
+```js
+{
+	serialize: function (value) {
+		return JSON.stringify(value, null, '\t');
+	},
+	deserialize: JSON.parse,
+	ext: 'json'
+}
+```
+
+Serialization, deserialization and file extension options. Defaults to JSON.
+
+Example using YAML:
+```js
+const yaml = require('js-yaml');
+const yamlOptions = {schema: yaml.JSON_SCHEMA};
+const serde = {
+	serialize: function (value) {
+		return yaml.safeDump(value, yamlOptions);
+	},
+	deserialize: function (value) {
+		return yaml.safeLoad(value, yamlOptions);
+	},
+	ext: 'yaml'
+};
+const conf = new ConfigStore('id', undefined, {serde});
+```
+
 ### Instance
 
 You can use [dot-notation](https://github.com/sindresorhus/dot-prop) in a `key` to access nested properties.

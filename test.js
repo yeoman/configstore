@@ -4,7 +4,8 @@ import os from 'os';
 import {serial as test} from 'ava';
 import Configstore from '.';
 
-const configstorePath = new Configstore('configstore-test').path;
+const configstoreId = 'configstore-test';
+const configstorePath = new Configstore(configstoreId).path;
 
 const cleanUpFile = () => {
 	if (fs.existsSync(configstorePath)) {
@@ -14,7 +15,11 @@ const cleanUpFile = () => {
 
 test.beforeEach(t => {
 	cleanUpFile();
-	t.context.conf = new Configstore('configstore-test');
+	t.context.conf = new Configstore(configstoreId);
+});
+
+test.afterEach(() => {
+	cleanUpFile();
 });
 
 test('.set() and .get()', t => {
@@ -106,12 +111,12 @@ test('.path', t => {
 });
 
 test('use default value', t => {
-	const conf = new Configstore('configstore-test', {foo: 'bar'});
+	const conf = new Configstore(configstoreId, {foo: 'bar'});
 	t.is(conf.get('foo'), 'bar');
 });
 
 test('support `globalConfigPath` option', t => {
-	const conf = new Configstore('configstore-test', {}, {globalConfigPath: true});
+	const conf = new Configstore(configstoreId, {}, {globalConfigPath: true});
 	const regex = /configstore-test(\/|\\)config.json$/;
 	t.true(regex.test(conf.path));
 });
@@ -123,14 +128,34 @@ test('support `configPath` option', t => {
 	t.true(regex.test(conf.path));
 });
 
+test('support `serde` option', t => {
+	t.plan(4);
+	const deserialized = {key: 'value'};
+	const serialized = 'key:value';
+	const serde = {
+		serialize(value) {
+			t.is(value, deserialized);
+			return serialized;
+		},
+		deserialize(value) {
+			t.is(value, serialized);
+			return deserialized;
+		},
+		ext: 'serde'
+	};
+	const conf = new Configstore(configstoreId, undefined, {serde});
+	const pathRegex = /configstore(\/|\\)configstore-test.serde$/;
+	t.regex(conf.path, pathRegex);
+	conf.all = deserialized;
+	t.is(conf.all, deserialized);
+});
+
 test('ensure `.all` is always an object', t => {
-	cleanUpFile();
 	t.notThrows(() => t.context.conf.get('foo'));
 });
 
 test('the store is NOT created until write', t => {
-	cleanUpFile();
-	const conf = new Configstore('configstore-test');
+	const conf = new Configstore(configstoreId);
 	t.false(fs.existsSync(conf.path));
 	conf.set('foo', 'bar');
 	t.true(fs.existsSync(conf.path));

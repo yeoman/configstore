@@ -42,6 +42,7 @@
 	},
 	"devDependencies": {
 		"ava": "*",
+		"js-yaml": "^3.12.0",
 		"xo": "*"
 	}
 }

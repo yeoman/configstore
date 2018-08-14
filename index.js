@@ -15,9 +15,17 @@ const writeFileOptions = {mode: 0o0600};
 
 class Configstore {
 	constructor(id, defaults, options = {}) {
+		this.serde = Object.assign({
+			serialize(value) {
+				return JSON.stringify(value, null, '\t');
+			},
+			deserialize: JSON.parse,
+			ext: 'json'
+		}, options.serde);
+
 		const pathPrefix = options.globalConfigPath ?
-			path.join(id, 'config.json') :
-			path.join('configstore', `${id}.json`);
+			path.join(id, `config.${this.serde.ext}`) :
+			path.join('configstore', `${id}.${this.serde.ext}`);
 
 		this.path = options.configPath || path.join(configDir, pathPrefix);
 
@@ -28,7 +36,7 @@ class Configstore {
 
 	get all() {
 		try {
-			return JSON.parse(fs.readFileSync(this.path, 'utf8'));
+			return this.serde.deserialize(fs.readFileSync(this.path, 'utf8'));
 		} catch (error) {
 			// Create directory if it doesn't exist
 			if (error.code === 'ENOENT') {
@@ -55,7 +63,7 @@ class Configstore {
 			// Make sure the folder exists as it could have been deleted in the meantime
 			makeDir.sync(path.dirname(this.path), makeDirOptions);
 
-			writeFileAtomic.sync(this.path, JSON.stringify(value, null, '\t'), writeFileOptions);
+			writeFileAtomic.sync(this.path, this.serde.serialize(value), writeFileOptions);
 		} catch (error) {
 			// Improve the message of permission errors
 			if (error.code === 'EACCES') {
