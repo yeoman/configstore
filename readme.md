@@ -5,7 +5,8 @@
 Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.<br>
 Example: `~/.config/configstore/some-id.json`
 
-*If you need this for Electron, check out [`electron-store`](https://github.com/sindresorhus/electron-store) instead.  Also consider [conf](https://github.com/sindresorhus/conf) for an updated approach to this concept.*
+*If you need this for Electron, check out [`electron-store`](https://github.com/sindresorhus/electron-store) instead.*<br>
+*And check out [`conf`](https://github.com/sindresorhus/conf) for an updated approach to this concept.*
 
 
 ## Install
