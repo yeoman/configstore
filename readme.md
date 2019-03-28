@@ -43,6 +43,20 @@ console.log(conf.get('awesome'));
 //=> undefined
 ```
 
+---
+
+<div align="center">
+	<b>
+		<a href="https://tidelift.com/subscription/pkg/npm-configstore?utm_source=npm-configstore&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>
+	</b>
+	<br>
+	<sub>
+		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
+	</sub>
+</div>
+
+---
+
 
 ## API
 
@@ -125,6 +139,11 @@ conf.all = {
 	hello: 'world'
 };
 ```
+
+
+## Security
+
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## License
