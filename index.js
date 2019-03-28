@@ -8,7 +8,7 @@ const writeFileAtomic = require('write-file-atomic');
 const dotProp = require('dot-prop');
 const uniqueString = require('unique-string');
 
-const configDir = xdgBasedir.config || path.join(os.tmpdir(), uniqueString());
+const configDirectory = xdgBasedir.config || path.join(os.tmpdir(), uniqueString());
 const permissionError = 'You don\'t have access to this file.';
 const makeDirOptions = {mode: 0o0700};
 const writeFileOptions = {mode: 0o0600};
@@ -19,7 +19,7 @@ class Configstore {
 			path.join(id, 'config.json') :
 			path.join('configstore', `${id}.json`);
 
-		this.path = options.configPath || path.join(configDir, pathPrefix);
+		this.path = options.configPath || path.join(configDirectory, pathPrefix);
 
 		if (defaults) {
 			this.all = Object.assign({}, defaults, this.all);

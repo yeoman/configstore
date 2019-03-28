@@ -2,7 +2,7 @@
 
 > Easily load and persist config without having to think about where and how
 
-Config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.<br>
+The config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.<br>
 Example: `~/.config/configstore/some-id.json`
 
 *If you need this for Electron, check out [`electron-store`](https://github.com/sindresorhus/electron-store) instead.*<br>
@@ -20,26 +20,25 @@ $ npm install configstore
 
 ```js
 const Configstore = require('configstore');
-const pkg = require('./package.json');
+const packageJson = require('./package.json');
 
-// create a Configstore instance with an unique ID e.g.
-// Package name and optionally some default values
-const conf = new Configstore(pkg.name, {foo: 'bar'});
+// Create a Configstore instance
+const config = new Configstore(packageJson.name, {foo: 'bar'});
 
-console.log(conf.get('foo'));
+console.log(config.get('foo'));
 //=> 'bar'
 
-conf.set('awesome', true);
-console.log(conf.get('awesome'));
+config.set('awesome', true);
+console.log(config.get('awesome'));
 //=> true
 
 // Use dot-notation to access nested properties
-conf.set('bar.baz', true);
-console.log(conf.get('bar'));
+config.set('bar.baz', true);
+console.log(config.get('bar'));
 //=> {baz: true}
 
-conf.delete('awesome');
-console.log(conf.get('awesome'));
+config.delete('awesome');
+console.log(config.get('awesome'));
 //=> undefined
 ```
 
@@ -135,7 +134,7 @@ Get the path to the config file. Can be used to show the user where the config f
 Get all the config as an object or replace the current config with an object:
 
 ```js
-conf.all = {
+config.all = {
 	hello: 'world'
 };
 ```
@@ -144,9 +143,3 @@ conf.all = {
 ## Security
 
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
-
-
-## License
-
-[BSD license](http://opensource.org/licenses/bsd-license.php)<br>
-Copyright Google
