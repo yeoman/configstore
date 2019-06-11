@@ -1,6 +1,6 @@
 {
 	"name": "configstore",
-	"version": "4.0.0",
+	"version": "5.0.0",
 	"description": "Easily load and save config without having to think about where and how",
 	"license": "BSD-2-Clause",
 	"repository": "yeoman/configstore",
