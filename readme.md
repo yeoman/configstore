@@ -63,6 +63,8 @@ Default config.
 
 #### options
 
+Type: `object`
+
 ##### globalConfigPath
 
 Type: `boolean`<br>

@@ -22,7 +22,10 @@ class Configstore {
 		this.path = options.configPath || path.join(configDirectory, pathPrefix);
 
 		if (defaults) {
-			this.all = Object.assign({}, defaults, this.all);
+			this.all = {
+				...defaults,
+				...this.all
+			};
 		}
 	}
 
@@ -55,7 +58,7 @@ class Configstore {
 			// Make sure the folder exists as it could have been deleted in the meantime
 			makeDir.sync(path.dirname(this.path), makeDirOptions);
 
-			writeFileAtomic.sync(this.path, JSON.stringify(value, null, '\t'), writeFileOptions);
+			writeFileAtomic.sync(this.path, JSON.stringify(value, undefined, '\t'), writeFileOptions);
 		} catch (error) {
 			// Improve the message of permission errors
 			if (error.code === 'EACCES') {
