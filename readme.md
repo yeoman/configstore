@@ -1,20 +1,18 @@
-# configstore [![Build Status](https://travis-ci.org/yeoman/configstore.svg?branch=master)](https://travis-ci.org/yeoman/configstore)
+# configstore
 
 > Easily load and persist config without having to think about where and how
 
-The config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.<br>
+The config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`.\
 Example: `~/.config/configstore/some-id.json`
 
-*If you need this for Electron, check out [`electron-store`](https://github.com/sindresorhus/electron-store) instead.*<br>
+*If you need this for Electron, check out [`electron-store`](https://github.com/sindresorhus/electron-store) instead.*\
 *And check out [`conf`](https://github.com/sindresorhus/conf) for an updated approach to this concept.*
-
 
 ## Install
 
 ```
 $ npm install configstore
 ```
-
 
 ## Usage
 
@@ -42,7 +40,6 @@ console.log(config.get('awesome'));
 //=> undefined
 ```
 
-
 ## API
 
 ### Configstore(packageName, defaults?, options?)
@@ -67,14 +64,14 @@ Type: `object`
 
 ##### globalConfigPath
 
-Type: `boolean`<br>
+Type: `boolean`\
 Default: `false`
 
 Store the config at `$CONFIG/package-name/config.json` instead of the default `$CONFIG/configstore/package-name.json`. This is not recommended as you might end up conflicting with other tools, rendering the "without having to think" idea moot.
 
 ##### configPath
 
-Type: `string`<br>
+Type: `string`\
 Default: Automatic
 
 **Please don't use this option unless absolutely necessary and you know what you're doing.**
@@ -126,7 +123,6 @@ config.all = {
 	hello: 'world'
 };
 ```
-
 
 ---
 
