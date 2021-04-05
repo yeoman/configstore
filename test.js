@@ -140,7 +140,7 @@ test('the store is NOT created until write', t => {
 	t.true(fs.existsSync(config.path));
 });
 
-test('ensure necessary sub directories are created', t => {
+test('ensure necessary sub-directories are created', t => {
 	const customPath = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'configstore-recursive-')), 'foo', 'bar', 'baz.json');
 	const config = new Configstore('ignored-namespace', undefined, {
 		globalConfigPath: true,
