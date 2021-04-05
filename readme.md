@@ -6,7 +6,7 @@ The config is stored in a JSON file located in `$XDG_CONFIG_HOME` or `~/.config`
 Example: `~/.config/configstore/some-id.json`
 
 *If you need this for Electron, check out [`electron-store`](https://github.com/sindresorhus/electron-store) instead.*\
-*And check out [`conf`](https://github.com/sindresorhus/conf) for an updated approach to this concept.*
+*And check out [`conf`](https://github.com/sindresorhus/conf) for a more modern version of `configstore`.*
 
 ## Install
 
@@ -17,10 +17,11 @@ $ npm install configstore
 ## Usage
 
 ```js
-const Configstore = require('configstore');
-const packageJson = require('./package.json');
+import Configstore from 'configstore';
 
-// Create a Configstore instance
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+
+// Create a Configstore instance.
 const config = new Configstore(packageJson.name, {foo: 'bar'});
 
 console.log(config.get('foo'));
@@ -30,7 +31,7 @@ config.set('awesome', true);
 console.log(config.get('awesome'));
 //=> true
 
-// Use dot-notation to access nested properties
+// Use dot-notation to access nested properties.
 config.set('bar.baz', true);
 console.log(config.get('bar'));
 //=> {baz: true}

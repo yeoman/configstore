@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import {serial as test} from 'ava';
-import Configstore from '.';
+import test from 'ava';
+import Configstore from './index.js';
 
 const configstorePath = new Configstore('configstore-test').path;
 

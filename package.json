@@ -10,8 +10,10 @@
 		"email": "sindresorhus@gmail.com",
 		"url": "https://sindresorhus.com"
 	},
+	"type": "module",
+	"exports": "./index.js",
 	"engines": {
-		"node": ">=10.13"
+		"node": ">=12"
 	},
 	"scripts": {
 		"test": "xo && ava"
@@ -33,14 +35,17 @@
 		"save"
 	],
 	"dependencies": {
-		"dot-prop": "^5.2.0",
-		"graceful-fs": "^4.1.2",
-		"unique-string": "^2.0.0",
-		"write-file-atomic": "^3.0.0",
-		"xdg-basedir": "^4.0.0"
+		"dot-prop": "^6.0.1",
+		"graceful-fs": "^4.2.6",
+		"unique-string": "^3.0.0",
+		"write-file-atomic": "^3.0.3",
+		"xdg-basedir": "^5.0.1"
 	},
 	"devDependencies": {
-		"ava": "^2.1.0",
-		"xo": "^0.24.0"
+		"ava": "^3.15.0",
+		"xo": "^0.38.2"
+	},
+	"ava": {
+		"serial": true
 	}
 }
