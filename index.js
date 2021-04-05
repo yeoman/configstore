@@ -2,7 +2,6 @@
 const path = require('path');
 const os = require('os');
 const fs = require('graceful-fs');
-const makeDir = require('make-dir');
 const xdgBasedir = require('xdg-basedir');
 const writeFileAtomic = require('write-file-atomic');
 const dotProp = require('dot-prop');
@@ -10,7 +9,7 @@ const uniqueString = require('unique-string');
 
 const configDirectory = xdgBasedir.config || path.join(os.tmpdir(), uniqueString());
 const permissionError = 'You don\'t have access to this file.';
-const makeDirOptions = {mode: 0o0700};
+const mkdirOptions = {mode: 0o0700, recursive: true};
 const writeFileOptions = {mode: 0o0600};
 
 class Configstore {
@@ -56,7 +55,7 @@ class Configstore {
 	set all(value) {
 		try {
 			// Make sure the folder exists as it could have been deleted in the meantime
-			makeDir.sync(path.dirname(this.path), makeDirOptions);
+			fs.mkdirSync(path.dirname(this.path), mkdirOptions);
 
 			writeFileAtomic.sync(this.path, JSON.stringify(value, undefined, '\t'), writeFileOptions);
 		} catch (error) {
