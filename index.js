@@ -18,6 +18,7 @@ export default class Configstore {
 			path.join('configstore', `${id}.json`);
 
 		this._path = options.configPath || path.join(configDirectory, pathPrefix);
+		this._jsonSpace = options.jsonSpace || '\t';
 
 		if (defaults) {
 			this.all = {
@@ -56,7 +57,7 @@ export default class Configstore {
 			// Make sure the folder exists as it could have been deleted in the meantime
 			fs.mkdirSync(path.dirname(this._path), mkdirOptions);
 
-			writeFileAtomic.sync(this._path, JSON.stringify(value, undefined, '\t'), writeFileOptions);
+			writeFileAtomic.sync(this._path, JSON.stringify(value, undefined, this._jsonSpace), writeFileOptions);
 		} catch (error) {
 			// Improve the message of permission errors
 			if (error.code === 'EACCES') {
@@ -105,5 +106,9 @@ export default class Configstore {
 
 	get path() {
 		return this._path;
+	}
+
+	get jsonSpace() {
+		return this._jsonSpace;
 	}
 }

@@ -124,6 +124,13 @@ test('support `configPath` option', t => {
 	t.regex(config.path, /configstore-custom-path(\/|\\)foo.json$/);
 });
 
+test('support `jsonSpace` option', t => {
+	const config = new Configstore('json-space', {}, {
+		jsonSpace: '  '
+	});
+	t.is(config.jsonSpace, ' ');
+});
+
 test('ensure `.all` is always an object', t => {
 	cleanUpFile();
 
