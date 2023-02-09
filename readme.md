@@ -18,6 +18,7 @@ $ npm install configstore
 
 ```js
 import Configstore from 'configstore';
+import fs from 'fs';
 
 const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
