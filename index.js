@@ -2,7 +2,7 @@ import path from 'path';
 import os from 'os';
 import fs from 'graceful-fs';
 import {xdgConfig} from 'xdg-basedir';
-import writeFileAtomic from 'write-file-atomic';
+import {writeFileSync} from 'atomically';
 import dotProp from 'dot-prop';
 
 function getConfigDirectory(id, globalConfigPath) {
@@ -47,7 +47,7 @@ export default class Configstore {
 
 			// Empty the file if it encounters invalid JSON
 			if (error.name === 'SyntaxError') {
-				writeFileAtomic.sync(this._path, '', writeFileOptions);
+				writeFileSync(this._path, '', writeFileOptions);
 				return {};
 			}
 
@@ -60,7 +60,7 @@ export default class Configstore {
 			// Make sure the folder exists as it could have been deleted in the meantime
 			fs.mkdirSync(path.dirname(this._path), mkdirOptions);
 
-			writeFileAtomic.sync(this._path, JSON.stringify(value, undefined, '\t'), writeFileOptions);
+			writeFileSync(this._path, JSON.stringify(value, undefined, '\t'), writeFileOptions);
 		} catch (error) {
 			// Improve the message of permission errors
 			if (error.code === 'EACCES') {
