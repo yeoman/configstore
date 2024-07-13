@@ -38,7 +38,6 @@
 		"atomically": "^2.0.3",
 		"dot-prop": "^9.0.0",
 		"graceful-fs": "^4.2.11",
-		"unique-string": "^3.0.0",
 		"xdg-basedir": "^5.1.0"
 	},
 	"devDependencies": {
