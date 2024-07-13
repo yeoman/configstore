@@ -8,9 +8,9 @@ import {
 } from 'dot-prop';
 
 function getConfigDirectory(id, globalConfigPath) {
-	const pathPrefix = globalConfigPath ?
-		path.join(id, 'config.json') :
-		path.join('configstore', `${id}.json`);
+	const pathPrefix = options.globalConfigPath
+			? path.join(id, 'config.json')
+			: path.join('configstore', `${id}.json`);
 
 	const configDirectory = xdgConfig || fs.mkdtempSync(fs.realpathSync(os.tmpdir()) + path.sep);
 
