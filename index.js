@@ -4,7 +4,10 @@ import fs from 'graceful-fs';
 import {xdgConfig} from 'xdg-basedir';
 import {writeFileSync} from 'atomically';
 import {
-	getProperty, setProperty, hasProperty, deleteProperty,
+	getProperty,
+	setProperty,
+	hasProperty,
+	deleteProperty,
 } from 'dot-prop';
 
 function getConfigDirectory(id, globalConfigPath) {
