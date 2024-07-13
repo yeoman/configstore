@@ -8,7 +8,7 @@ import {
 } from 'dot-prop';
 
 function getConfigDirectory(id, globalConfigPath) {
-	const pathPrefix = options.globalConfigPath
+	const pathPrefix = globalConfigPath
 			? path.join(id, 'config.json')
 			: path.join('configstore', `${id}.json`);
 
