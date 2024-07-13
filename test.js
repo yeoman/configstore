@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
 import test from 'ava';
 import Configstore from './index.js';
 
@@ -33,17 +33,17 @@ test('.set() with object and .get()', t => {
 		baz: {
 			boo: 'foo',
 			foo: {
-				bar: 'baz'
-			}
-		}
+				bar: 'baz',
+			},
+		},
 	});
 	t.is(config.get('foo1'), 'bar1');
 	t.is(config.get('foo2'), 'bar2');
 	t.deepEqual(config.get('baz'), {
 		boo: 'foo',
 		foo: {
-			bar: 'baz'
-		}
+			bar: 'baz',
+		},
 	});
 	t.is(config.get('baz.boo'), 'foo');
 	t.deepEqual(config.get('baz.foo'), {bar: 'baz'});
@@ -119,7 +119,7 @@ test('support `configPath` option', t => {
 	const customPath = path.join(os.tmpdir(), 'configstore-custom-path', 'foo.json');
 	const config = new Configstore('ignored-namespace', {}, {
 		globalConfigPath: true,
-		configPath: customPath
+		configPath: customPath,
 	});
 	t.regex(config.path, /configstore-custom-path(\/|\\)foo.json$/);
 });
@@ -144,7 +144,7 @@ test('ensure necessary sub-directories are created', t => {
 	const customPath = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'configstore-recursive-')), 'foo', 'bar', 'baz.json');
 	const config = new Configstore('ignored-namespace', undefined, {
 		globalConfigPath: true,
-		configPath: customPath
+		configPath: customPath,
 	});
 	t.false(fs.existsSync(config.path));
 	config.set('foo', 'bar');

@@ -1,16 +1,21 @@
-import path from 'path';
-import os from 'os';
+import path from 'node:path';
+import os from 'node:os';
 import fs from 'graceful-fs';
 import {xdgConfig} from 'xdg-basedir';
 import {writeFileSync} from 'atomically';
-import dotProp from 'dot-prop';
+import {
+	getProperty,
+	setProperty,
+	hasProperty,
+	deleteProperty,
+} from 'dot-prop';
 
 function getConfigDirectory(id, globalConfigPath) {
-	const pathPrefix = globalConfigPath ?
-		path.join(id, 'config.json') :
-		path.join('configstore', `${id}.json`);
+	const pathPrefix = globalConfigPath
+		? path.join(id, 'config.json')
+		: path.join('configstore', `${id}.json`);
 
-	const configDirectory = xdgConfig || fs.mkdtempSync(fs.realpathSync(os.tmpdir()) + path.sep);
+	const configDirectory = xdgConfig ?? fs.mkdtempSync(fs.realpathSync(os.tmpdir()) + path.sep);
 
 	return path.join(configDirectory, pathPrefix);
 }
@@ -26,7 +31,7 @@ export default class Configstore {
 		if (defaults) {
 			this.all = {
 				...defaults,
-				...this.all
+				...this.all,
 			};
 		}
 	}
@@ -76,7 +81,7 @@ export default class Configstore {
 	}
 
 	get(key) {
-		return dotProp.get(this.all, key);
+		return getProperty(this.all, key);
 	}
 
 	set(key, value) {
@@ -84,22 +89,22 @@ export default class Configstore {
 
 		if (arguments.length === 1) {
 			for (const k of Object.keys(key)) {
-				dotProp.set(config, k, key[k]);
+				setProperty(config, k, key[k]);
 			}
 		} else {
-			dotProp.set(config, key, value);
+			setProperty(config, key, value);
 		}
 
 		this.all = config;
 	}
 
 	has(key) {
-		return dotProp.has(this.all, key);
+		return hasProperty(this.all, key);
 	}
 
 	delete(key) {
 		const config = this.all;
-		dotProp.delete(config, key);
+		deleteProperty(config, key);
 		this.all = config;
 	}
 
