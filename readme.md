@@ -10,8 +10,8 @@ Example: `~/.config/configstore/some-id.json`
 
 ## Install
 
-```
-$ npm install configstore
+```sh
+npm install configstore
 ```
 
 ## Usage
@@ -125,15 +125,3 @@ config.all = {
 	hello: 'world'
 };
 ```
-
----
-
-<div align="center">
-	<b>
-		<a href="https://tidelift.com/subscription/pkg/npm-configstore?utm_source=npm-configstore&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>
-	</b>
-	<br>
-	<sub>
-		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
-	</sub>
-</div>
