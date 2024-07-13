@@ -4,20 +4,24 @@ import fs from 'graceful-fs';
 import {xdgConfig} from 'xdg-basedir';
 import {writeFileSync} from 'atomically';
 import dotProp from 'dot-prop';
-import uniqueString from 'unique-string';
 
-const configDirectory = xdgConfig || path.join(os.tmpdir(), uniqueString());
+function getConfigDirectory(id, globalConfigPath) {
+	const pathPrefix = globalConfigPath ?
+		path.join(id, 'config.json') :
+		path.join('configstore', `${id}.json`);
+
+	const configDirectory = xdgConfig || fs.mkdtempSync(fs.realpathSync(os.tmpdir()) + path.sep);
+
+	return path.join(configDirectory, pathPrefix);
+}
+
 const permissionError = 'You don\'t have access to this file.';
 const mkdirOptions = {mode: 0o0700, recursive: true};
 const writeFileOptions = {mode: 0o0600};
 
 export default class Configstore {
 	constructor(id, defaults, options = {}) {
-		const pathPrefix = options.globalConfigPath ?
-			path.join(id, 'config.json') :
-			path.join('configstore', `${id}.json`);
-
-		this._path = options.configPath || path.join(configDirectory, pathPrefix);
+		this._path = options.configPath ?? getConfigDirectory(id, options.globalConfigPath);
 
 		if (defaults) {
 			this.all = {
