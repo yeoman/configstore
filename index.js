@@ -15,7 +15,7 @@ function getConfigDirectory(id, globalConfigPath) {
 		? path.join(id, 'config.json')
 		: path.join('configstore', `${id}.json`);
 
-	const configDirectory = xdgConfig || fs.mkdtempSync(fs.realpathSync(os.tmpdir()) + path.sep);
+	const configDirectory = xdgConfig ?? fs.mkdtempSync(fs.realpathSync(os.tmpdir()) + path.sep);
 
 	return path.join(configDirectory, pathPrefix);
 }
