@@ -78,11 +78,11 @@ test('.delete()', t => {
 	config.set('baz.boo', true);
 	config.set('baz.foo.bar', 'baz');
 	config.delete('foo');
-	t.not(config.get('foo'), 'bar');
+	t.is(config.get('foo'), undefined);
 	config.delete('baz.boo');
-	t.not(config.get('baz.boo'), true);
+	t.is(config.get('baz.boo'), undefined);
 	config.delete('baz.foo');
-	t.not(config.get('baz.foo'), {bar: 'baz'});
+	t.is(config.get('baz.foo'), undefined);
 	config.set('foo.bar.baz', {awesome: 'icecream'});
 	config.set('foo.bar.zoo', {awesome: 'redpanda'});
 	config.delete('foo.bar.baz');
@@ -195,4 +195,21 @@ test('clearInvalidConfig: false preserves corrupted JSON and throws', t => {
 	// File should be preserved
 	const preservedContent = fs.readFileSync(config.path, 'utf8');
 	t.is(preservedContent, corruptedContent);
+});
+
+test('validate id', t => {
+	const fixtures = [
+		'',
+		'.',
+		'..',
+		'../escape',
+		'foo/../bar',
+		'foo/bar',
+		String.raw`foo\bar`,
+		'foo\0bar',
+	];
+
+	for (const id of fixtures) {
+		t.throws(() => new Configstore(id), {message: /`id` must be a safe filename/});
+	}
 });

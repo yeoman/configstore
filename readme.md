@@ -37,7 +37,7 @@ config.set('bar.baz', true);
 console.log(config.get('bar'));
 //=> {baz: true}
 
-// Use default values with nullish coalescing
+// Handle missing keys with nullish coalescing.
 console.log(config.get('nonexistent') ?? 'default value');
 //=> 'default value'
 
@@ -48,15 +48,15 @@ console.log(config.get('awesome'));
 
 ## API
 
-### Configstore(packageName, defaults?, options?)
+### Configstore(id, defaults?, options?)
 
 Returns a new instance.
 
-#### packageName
+#### id
 
 Type: `string`
 
-Name of your package.
+Identifier for your config. Usually your package name.
 
 #### defaults
 
@@ -82,7 +82,7 @@ Default: Automatic
 
 **Please don't use this option unless absolutely necessary and you know what you're doing.**
 
-Set the path of the config file. Overrides the `packageName` and `globalConfigPath` options.
+Set the path of the config file. Overrides the `id` and `globalConfigPath` options.
 
 ##### clearInvalidConfig
 
@@ -143,9 +143,12 @@ Get the path to the config file. Can be used to show the user where the config f
 
 ### .all
 
-Get all the config as an object or replace the current config with an object:
+Get all the config as an object or replace the current config with an object.
 
 ```js
+console.log(config.all);
+//=> {foo: 'bar', hello: 'world'}
+
 config.all = {
 	hello: 'world'
 };

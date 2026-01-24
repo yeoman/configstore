@@ -9,8 +9,13 @@ import {
 	hasProperty,
 	deleteProperty,
 } from 'dot-prop';
+import isSafeFilename from 'is-safe-filename';
 
 function getConfigDirectory(id, globalConfigPath) {
+	if (!isSafeFilename(id)) {
+		throw new Error(`\`id\` must be a safe filename: ${JSON.stringify(id)}`);
+	}
+
 	const pathPrefix = globalConfigPath
 		? path.join(id, 'config.json')
 		: path.join('configstore', `${id}.json`);
@@ -49,7 +54,7 @@ export default class Configstore {
 		try {
 			return JSON.parse(fs.readFileSync(this._path, 'utf8'));
 		} catch (error) {
-			// Create directory if it doesn't exist
+			// File doesn't exist yet
 			if (error.code === 'ENOENT') {
 				return {};
 			}
@@ -82,7 +87,7 @@ export default class Configstore {
 	}
 
 	get size() {
-		return Object.keys(this.all || {}).length;
+		return Object.keys(this.all).length;
 	}
 
 	get(key) {

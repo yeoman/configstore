@@ -15,7 +15,7 @@
 	"types": "./index.d.ts",
 	"sideEffects": false,
 	"engines": {
-		"node": ">=18"
+		"node": ">=20"
 	},
 	"scripts": {
 		"test": "xo && ava"
@@ -38,14 +38,15 @@
 		"save"
 	],
 	"dependencies": {
-		"atomically": "^2.0.3",
-		"dot-prop": "^9.0.0",
+		"atomically": "^2.1.0",
+		"dot-prop": "^10.1.0",
 		"graceful-fs": "^4.2.11",
+		"is-safe-filename": "^0.1.0",
 		"xdg-basedir": "^5.1.0"
 	},
 	"devDependencies": {
-		"ava": "^6.2.0",
-		"xo": "^0.60.0"
+		"ava": "^6.4.1",
+		"xo": "^1.2.3"
 	},
 	"ava": {
 		"serial": true
