@@ -38,9 +38,12 @@ function handlePermissionError(error) {
 }
 
 export default class Configstore {
+	#path;
+	#clearInvalidConfig;
+
 	constructor(id, defaults, options = {}) {
-		this._path = options.configPath ?? getConfigDirectory(id, options.globalConfigPath);
-		this._clearInvalidConfig = options.clearInvalidConfig ?? true;
+		this.#path = options.configPath ?? getConfigDirectory(id, options.globalConfigPath);
+		this.#clearInvalidConfig = options.clearInvalidConfig ?? true;
 
 		if (defaults) {
 			this.all = {
@@ -52,7 +55,7 @@ export default class Configstore {
 
 	get all() {
 		try {
-			return JSON.parse(fs.readFileSync(this._path, 'utf8'));
+			return JSON.parse(fs.readFileSync(this.#path, 'utf8'));
 		} catch (error) {
 			// File doesn't exist yet
 			if (error.code === 'ENOENT') {
@@ -61,8 +64,8 @@ export default class Configstore {
 
 			// Handle invalid JSON
 			if (error.name === 'SyntaxError') {
-				if (this._clearInvalidConfig) {
-					writeFileSync(this._path, '', writeFileOptions);
+				if (this.#clearInvalidConfig) {
+					writeFileSync(this.#path, '', writeFileOptions);
 					return {};
 				}
 
@@ -78,9 +81,9 @@ export default class Configstore {
 	set all(value) {
 		try {
 			// Make sure the folder exists as it could have been deleted in the meantime
-			fs.mkdirSync(path.dirname(this._path), mkdirOptions);
+			fs.mkdirSync(path.dirname(this.#path), mkdirOptions);
 
-			writeFileSync(this._path, JSON.stringify(value, undefined, '\t'), writeFileOptions);
+			writeFileSync(this.#path, JSON.stringify(value, undefined, '\t'), writeFileOptions);
 		} catch (error) {
 			handlePermissionError(error); // This always throws
 		}
@@ -123,6 +126,6 @@ export default class Configstore {
 	}
 
 	get path() {
-		return this._path;
+		return this.#path;
 	}
 }
